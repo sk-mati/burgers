@@ -12,7 +12,7 @@ class Producto extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'idproducto', 'nombre', 'cantidad', 'precio', 'imagen',
+        'idproducto', 'nombre', 'cantidad', 'precio', 'imagen', 'fk_idcategoria',
     ];
 
     protected $hidden = [
@@ -77,13 +77,15 @@ class Producto extends Model
                     nombre,
                     cantidad,
                     precio,
-                    imagen
-            ) VALUES (?, ?, ?, ?);";
+                    imagen,
+                    fk_idcategoria
+            ) VALUES (?, ?, ?, ?, ?);";
         $result = DB::insert($sql, [
             $this->nombre,
             $this->cantidad,
             $this->precio,
             $this->imagen,
+            $this->fk_idcategoria,
         ]);
         return $this->idproducto = DB::getPdo()->lastInsertId();
     }

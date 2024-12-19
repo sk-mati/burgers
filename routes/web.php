@@ -23,7 +23,54 @@ Route::group(array('domain' => '127.0.0.1'), function () {
     Route::post('/admin/patente/nuevo', 'ControladorPatente@guardar');
 
 /* --------------------------------------------- */
-/* CONTROLADOR LOGIN                           */
+/* CONTROLADOR CLIENTE                           */
+/* --------------------------------------------- */
+    Route::get('/admin/cliente/nuevo', 'ControladorCliente@nuevo');
+    Route::post('/admin/cliente/nuevo', 'ControladorCliente@guardar');
+
+/* --------------------------------------------- */
+/* CONTROLADOR PRODUCTOS                         */
+/* --------------------------------------------- */
+    Route::get('/admin/producto/nuevo', 'ControladorProducto@nuevo');
+    Route::post('/admin/producto/nuevo', 'ControladorProducto@guardar');
+
+/* --------------------------------------------- */
+/* CONTROLADOR PEDIDOS                           */
+/* --------------------------------------------- */
+    Route::get('/admin/pedido/nuevo', 'ControladorPedido@nuevo');
+    Route::post('/admin/pedido/nuevo', 'ControladorPedido@guardar');
+
+/* --------------------------------------------- */
+/* CONTROLADOR POSTULACIONES                     */
+/* --------------------------------------------- */
+    Route::get('/admin/postulacion/nuevo', 'ControladorPostulacion@nuevo');
+    Route::post('/admin/postulacion/nuevo', 'ControladorPostulacion@guardar');
+
+/* --------------------------------------------- */
+/* CONTROLADOR SUCURSALES                        */
+/* --------------------------------------------- */
+    Route::get('/admin/sucursal/nuevo', 'ControladorSucursal@nuevo');
+    Route::post('/admin/sucursal/nuevo', 'ControladorSucursal@guardar');
+
+/* --------------------------------------------- */
+/* CONTROLADOR CATEGORIAS                        */
+/* --------------------------------------------- */
+    Route::get('/admin/categoria/nuevo', 'ControladorCategoria@nuevo');
+    
+/* --------------------------------------------- */
+/* CONTROLADOR PROVEEDORES                        */
+/* --------------------------------------------- */
+    Route::get('/admin/proveedor/nuevo', 'ControladorProveedor@nuevo');
+    Route::post('/admin/proveedor/nuevo', 'ControladorProveedor@guardar');
+
+/* --------------------------------------------- */
+/* CONTROLADOR RUBROS                        */
+/* --------------------------------------------- */
+    Route::get('/admin/rubro/nuevo', 'ControladorRubro@nuevo');
+    Route::post('/admin/rubro/nuevo', 'ControladorRubro@guardar');
+
+/* --------------------------------------------- */
+/* CONTROLADOR LOGIN                             */
 /* --------------------------------------------- */
     Route::get('/admin/login', 'ControladorLogin@index');
     Route::get('/admin/logout', 'ControladorLogin@logout');
