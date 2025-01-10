@@ -2,26 +2,25 @@
 
 namespace App\Entidades;
 
-use DB;//Es como el mysqli anteriormente utilizado
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
-class Pedidos_producto extends Model
+class Pedido_producto extends Model
 {
 
     protected $table = 'pedidos_productos';
-    public $timestamps = false;//Si es true, inserta una marca en la base de datos con fecha y hora de inserción
+    public $timestamps = false;
 
-    protected $fillable = [ //Son los campos de la tabla clientes en la BBDD
-        'idpedidoproducto', 'fk_idpedido', 'fk_idproducto', 'cantidad', 'precio_unitario', 'total',
+    protected $fillable = [ 
+        'idpedidoproducto', 'fk_idpedido', 'fk_idproducto', 'cantidad', 'precio_unitario', 'total'
     ];
 
     protected $hidden = [
 
     ];
 
-    public function obtenerTodos() //Método
+    public function obtenerTodos() 
     {
-        //Arma la query
         $sql = "SELECT 
                   idpedidoproducto,
                   fk_idpedido,
@@ -29,10 +28,9 @@ class Pedidos_producto extends Model
                   cantidad,
                   precio_unitario,
                   total
-                FROM pedidos_productos";
-        //Ejecuta la query
-        $lstRetorno = DB::select($sql); //Método static. Permite llamar sin instanciar. Hace todo el fetch_assoc en una línea.
-        return $lstRetorno; //Devuelve array con datos.
+                FROM pedidos_productos ORDER BY idpedidoproducto ASC";
+        $lstRetorno = DB::select($sql); 
+        return $lstRetorno;
     }
 
     public function obtenerPorId($idPedidoproducto)
@@ -61,11 +59,13 @@ class Pedidos_producto extends Model
 
     public function guardar() {
         $sql = "UPDATE pedidos_productos SET
+            fk_idpedido=$this->fk_idpedido,
+            fk_idproducto=$this->fk_idproducto,
             cantidad=$this->cantidad,
             precio_unitario=$this->precio_unitario,
             total=$this->total
-            WHERE idpedidoproducto=?"; //El signo de interrogación indica que lo busca en el parámetro (más seguro). Filtro de inyeccioón SQL.
-        $affected = DB::update($sql, [$this->idpedidoproducto]); //Arma la query por parámetro
+            WHERE idpedidoproducto=?"; 
+        $affected = DB::update($sql, [$this->idpedidoproducto]); 
     }
 
     public function eliminar()
@@ -78,20 +78,18 @@ class Pedidos_producto extends Model
     public function insertar()
     {
         $sql = "INSERT INTO pedidos_productos (
-                  idpedidoproducto,
                   fk_idpedido,
                   fk_idproducto,
                   cantidad,
                   precio_unitario,
                   total
-            ) VALUES (?, ?, ?, ?, ?, ?);";
+            ) VALUES (?, ?, ?, ?, ?);";
         $result = DB::insert($sql, [
-            $this->idpedidoproducto,
             $this->fk_idpedido,
             $this->fk_idproducto,
             $this->cantidad,
             $this->precio_unitario,
-            $this->total,
+            $this->total
         ]);
         return $this->idpedidoproducto = DB::getPdo()->lastInsertId();
     }

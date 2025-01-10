@@ -12,7 +12,7 @@ class Estado extends Model
     public $timestamps = false;
 
     protected $fillable = [ 
-        'idestado', 'nombre',
+        'idestado', 'nombre'
     ];
 
     protected $hidden = [
@@ -23,8 +23,8 @@ class Estado extends Model
     {
         $sql = "SELECT 
                   idestado,
-                  nombre,
-                FROM estados ORDER BY nombre";
+                  nombre
+                FROM estados ORDER BY nombre ASC";
         $lstRetorno = DB::select($sql);
         return $lstRetorno;
     }
@@ -47,15 +47,14 @@ class Estado extends Model
 
     public function guardar() {
         $sql = "UPDATE estados SET
-            nombre='$this->nombre',
-            WHERE idestado=?";
+                    nombre='$this->nombre'
+                WHERE idestado=?";
         $affected = DB::update($sql, [$this->idestado]); 
     }
 
     public function eliminar()
     {
-        $sql = "DELETE FROM estados WHERE
-            idestado=?";
+        $sql = "DELETE FROM estados WHERE idestado=?";
         $affected = DB::delete($sql, [$this->idestado]);
     }
 
