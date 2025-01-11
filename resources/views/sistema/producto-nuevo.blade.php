@@ -2,18 +2,18 @@
 @section('titulo', $titulo)
 @section('scripts')
 <script>
-      globalId = '<?php echo isset($cliente->idcliente) && $cliente->idcliente > 0 ? $cliente->idcliente : 0; ?>';
-      <?php $globalId = isset($cliente->idcliente) ? $cliente->idcliente : "0"; ?>
+      globalId = '<?php echo isset($producto->idproducto) && $producto->idproducto > 0 ? $producto->idproducto : 0; ?>';
+      <?php $globalId = isset($producto->idproducto) ? $producto->idproducto : "0"; ?>
 </script>
 @endsection
 @section('breadcrumb')
 <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/admin/home">Inicio</a></li>
-      <li class="breadcrumb-item"><a href="/admin/clientes">Clientes</a></li>
+      <li class="breadcrumb-item"><a href="/admin/productos">Productos</a></li>
       <li class="breadcrumb-item active">Modificar</li>
 </ol>
 <ol class="toolbar">
-      <li class="btn-item"><a title="Nuevo" href="/admin/cliente/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
+      <li class="btn-item"><a title="Nuevo" href="/admin/producto/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
       <li class="btn-item"><a title="Guardar" href="#" class="fa fa-floppy-o" aria-hidden="true" onclick="javascript: $('#modalGuardar').modal('toggle');"><span>Guardar</span></a>
       </li>
       @if($globalId > 0)
@@ -46,36 +46,22 @@ if (isset($msg)) {
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
-                        <label>Apellido: *</label>
-                        <input type="text" id="txtApellido" name="txtApellido" class="form-control" value="" required>
+                        <label>Cantidad: *</label>
+                        <input type="text" id="txtCantidad" name="txtCantidad" class="form-control" value="" required>
                   </div>
             </div>
             <div class="row">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
-                        <label>Correo: *</label>
-                        <input type="email" id="txtCorreo" name="txtCorreo" class="form-control" value="" required>
+                        <label>Precio: *</label>
+                        <input type="text" id="txtPrecio" name="txtPrecio" class="form-control" value="" required>
                   </div>
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
-                        <label>DNI: *</label>
-                        <input type="text" id="txtDni" name="txtDni" class="form-control" value="" required>
-                  </div>
-            </div>
-            <div class="row">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                  <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
-                  <div class="form-group col-6">
-                        <label>Celular: *</label>
-                        <input type="text" id="txtCelular" name="txtCelular" class="form-control" value="" required>
-                  </div>
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                  <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
-                  <div class="form-group col-6">
-                        <label>Clave: *</label>
-                        <input type="password" id="txtClave" name="txtClave" class="form-control" value="" required>
+                        <label>Imagen: *</label>
+                        <input type="text" id="txtImagen" name="txtImagen" class="form-control" value="" required>
                   </div>
             </div>
       </form>
