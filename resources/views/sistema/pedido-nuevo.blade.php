@@ -2,18 +2,18 @@
 @section('titulo', $titulo)
 @section('scripts')
 <script>
-      globalId = '<?php echo isset($producto->idproducto) && $producto->idproducto > 0 ? $producto->idproducto : 0; ?>';
-      <?php $globalId = isset($producto->idproducto) ? $producto->idproducto : "0"; ?>
+      globalId = '<?php echo isset($pedido->idpedido) && $pedido->idpedido > 0 ? $pedido->idpedido : 0; ?>';
+      <?php $globalId = isset($pedido->idpedido) ? $pedido->idpedido : "0"; ?>
 </script>
 @endsection
 @section('breadcrumb')
 <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/admin/home">Inicio</a></li>
-      <li class="breadcrumb-item"><a href="/admin/productos">Productos</a></li>
+      <li class="breadcrumb-item"><a href="/admin/pedidos">Pedidos</a></li>
       <li class="breadcrumb-item active">Modificar</li>
 </ol>
 <ol class="toolbar">
-      <li class="btn-item"><a title="Nuevo" href="/admin/producto/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
+      <li class="btn-item"><a title="Nuevo" href="/admin/pedido/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
       <li class="btn-item"><a title="Guardar" href="#" class="fa fa-floppy-o" aria-hidden="true" onclick="javascript: $('#modalGuardar').modal('toggle');"><span>Guardar</span></a>
       </li>
       @if($globalId > 0)
@@ -40,13 +40,13 @@ if (isset($msg)) {
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
-                        <label>Nombre: *</label>
+                        <label>Fecha: *</label>
                         <input type="text" id="txtNombre" name="txtNombre" class="form-control" value="" required>
                   </div>
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
-                        <label>Cantidad: *</label>
+                        <label>Descripción: *</label>
                         <input type="text" id="txtCantidad" name="txtCantidad" class="form-control" value="" required>
                   </div>
             </div>
@@ -54,15 +54,8 @@ if (isset($msg)) {
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
-                        <label>Precio: *</label>
+                        <label>Total: *</label>
                         <input type="text" id="txtPrecio" name="txtPrecio" class="form-control" value="" required>
-                  </div>
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                  <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
-                  <div class="form-group col-6">
-                        <label>Imagen: *</label>
-                        <input type="file" name="archivo" id="archivo" accept=".jpg, .jpeg, .png" value="" required>
-                        <p>Archivos admitidos: .jpg, .jpeg, .png</p>
                   </div>
             </div>
       </form>
