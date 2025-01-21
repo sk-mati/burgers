@@ -22,10 +22,10 @@ class Cliente extends Model
     public function cargarDesdeRequest($request) {
         $this->idcliente = $request->input('id') != "0" ? $request->input('id') : $this->idcliente;
         $this->nombre = $request->input('txtNombre');
-        $this->telefono = $request->input('txtTelefono');
-        $this->direccion = $request->input('txtDireccion');
-        $this->dni = $request->input('txtDni');
+        $this->apellido = $request->input('txtApellido');
         $this->correo = $request->input('txtCorreo');
+        $this->dni = $request->input('txtDni');
+        $this->celular = $request->input('txtCelular');
         $this->clave = $request->input('txtClave');
     }
 
@@ -35,10 +35,10 @@ class Cliente extends Model
         $sql = "SELECT 
                   idcliente,
                   nombre,
-                  telefono,
-                  direccion,
-                  dni,
+                  apellido,
                   correo,
+                  dni,
+                  celular,
                   clave
                 FROM clientes ORDER BY nombre";
         //Ejecuta la query
@@ -51,10 +51,10 @@ class Cliente extends Model
         $sql = "SELECT
                     idcliente,
                     nombre,
-                    telefono,
-                    direccion,
-                    dni,
+                    apellido,
                     correo,
+                    dni,
+                    celular,
                     clave
                 FROM clientes WHERE idcliente = $idCliente";
         $lstRetorno = DB::select($sql);
@@ -62,10 +62,10 @@ class Cliente extends Model
         if (count($lstRetorno) > 0) {
             $this->idcliente = $lstRetorno[0]->idcliente;
             $this->nombre = $lstRetorno[0]->nombre;
-            $this->telefono = $lstRetorno[0]->telefono;
-            $this->direccion = $lstRetorno[0]->direccion;
-            $this->dni = $lstRetorno[0]->dni;
+            $this->apellido = $lstRetorno[0]->apellido;
             $this->correo = $lstRetorno[0]->correo;
+            $this->dni = $lstRetorno[0]->dni;
+            $this->celular = $lstRetorno[0]->celular;
             $this->clave = $lstRetorno[0]->clave;
             return $this;
         }
@@ -75,10 +75,10 @@ class Cliente extends Model
     public function guardar() {
         $sql = "UPDATE clientes SET
             nombre='$this->nombre',
-            telefono='$this->telefono',
-            direccion='$this->direccion',
-            dni='$this->dni',
+            apellido='$this->apellido',
             correo='$this->correo',
+            dni='$this->dni',
+            celular='$this->celular',
             clave='$this->clave'
             WHERE idcliente=?"; //El signo de interrogación indica que lo busca en el parámetro (más seguro). Filtro de inyeccioón SQL.
         $affected = DB::update($sql, [$this->idcliente]); //Arma la query por parámetro
@@ -95,18 +95,18 @@ class Cliente extends Model
     {
         $sql = "INSERT INTO clientes (
                     nombre,
-                    telefono,
-                    direccion,
-                    dni,
+                    apellido,
                     correo,
+                    dni,
+                    celular,
                     clave
             ) VALUES (?, ?, ?, ?, ?, ?);";
         $result = DB::insert($sql, [
             $this->nombre,
-            $this->telefono,
-            $this->direccion,
-            $this->dni,
+            $this->apellido,
             $this->correo,
+            $this->dni,
+            $this->celular,
             $this->clave,
         ]);
         return $this->idcliente = DB::getPdo()->lastInsertId();
