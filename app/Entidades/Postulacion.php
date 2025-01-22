@@ -2,16 +2,16 @@
 
 namespace App\Entidades;
 
-use DB;//Es como el mysqli anteriormente utilizado
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Postulacion extends Model
 {
 
     protected $table = 'postulaciones';
-    public $timestamps = false;//Si es true, inserta una marca en la base de datos con fecha y hora de inserción
+    public $timestamps = false;
 
-    protected $fillable = [ //Son los campos de la tabla clientes en la BBDD
+    protected $fillable = [ 
         'idpostulacion', 'nombre', 'apellido', 'celular', 'correo', 'curriculum',
     ];
 
@@ -19,9 +19,8 @@ class Postulacion extends Model
 
     ];
 
-    public function obtenerTodos() //Método
+    public function obtenerTodos() 
     {
-        //Arma la query
         $sql = "SELECT 
                   idpostulacion,
                   nombre,
@@ -30,9 +29,8 @@ class Postulacion extends Model
                   correo,
                   curriculum
                 FROM postulaciones ORDER BY nombre";
-        //Ejecuta la query
-        $lstRetorno = DB::select($sql); //Método static. Permite llamar sin instanciar. Hace todo el fetch_assoc en una línea.
-        return $lstRetorno; //Devuelve array con datos.
+        $lstRetorno = DB::select($sql);
+        return $lstRetorno;
     }
 
     public function obtenerPorId($idPostulacion)
@@ -66,8 +64,8 @@ class Postulacion extends Model
             celular='$this->celular',
             correo='$this->correo',
             curriculum='$this->curriculum'
-            WHERE idpostulacion=?"; //El signo de interrogación indica que lo busca en el parámetro (más seguro). Filtro de inyeccioón SQL.
-        $affected = DB::update($sql, [$this->idpostulacion]); //Arma la query por parámetro
+            WHERE idpostulacion=?";
+        $affected = DB::update($sql, [$this->idpostulacion]);
     }
 
     public function eliminar()
