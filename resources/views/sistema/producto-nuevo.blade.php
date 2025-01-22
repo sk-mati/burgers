@@ -64,6 +64,17 @@ if (isset($msg)) {
                         <input type="file" name="archivo" id="archivo" accept=".jpg, .jpeg, .png" value="" required>
                         <p>Archivos admitidos: .jpg, .jpeg, .png</p>
                   </div>
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+                  <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
+                  <div class="form-group col-6">
+                        <label>Categoría: *</label>
+                        <select name="lstCategoria" id="lstCategoria" class="form-control selectpicker">
+                              <option value="" disabled selected>Seleccionar</option>
+                              @foreach($aCategorias as $categoria)
+                                    <option value="{{ $categoria->idcategoria }}">{{ $categoria->nombre }}</option>
+                              @endforeach
+                        </select>
+                  </div>
             </div>
       </form>
       <script>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Entidades\Producto;
+use App\Entidades\Categoria;
 use Illuminate\Http\Request;
 require app_path().'/start/constants.php';
 
@@ -11,7 +12,9 @@ class ControladorProducto extends Controller
       public function nuevo()
       {
             $titulo = "Nuevo producto";
-            return view("sistema.producto-nuevo", compact("titulo"));
+            $categoria = new Categoria();
+            $aCategorias = $categoria->obtenerTodos();
+            return view("sistema.producto-nuevo", compact("titulo", "aCategorias"));
       }
 
       public function guardar(Request $request) {
@@ -22,7 +25,7 @@ class ControladorProducto extends Controller
                 $entidad->cargarDesdeRequest($request);
     
                 //validaciones
-                if ($entidad->nombre == "" || $entidad->cantidad == "" || $entidad->precio == "" || $entidad->imagen == "") {
+                if ($entidad->nombre == "" || $entidad->cantidad == "" || $entidad->precio == "" || $entidad->imagen == "" || $entidad->fk_idcategoria == "") {
                     $msg["ESTADO"] = MSG_ERROR;
                     $msg["MSG"] = "Complete todos los datos";
                 } else {

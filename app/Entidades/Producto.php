@@ -19,6 +19,15 @@ class Producto extends Model
 
     ];
 
+    public function cargarDesdeRequest($request) {
+        $this->idproducto = $request->input('id') != "0" ? $request->input('id') : $this->idproducto;
+        $this->nombre = $request->input('txtNombre');
+        $this->cantidad = $request->input('txtCantidad');
+        $this->precio = $request->input('txtPrecio');
+        $this->imagen = $request->input('archivo');
+        $this->fk_idcategoria = $request->input('lstCategoria');
+    }
+
     public function obtenerTodos()
     {
         $sql = "SELECT 
@@ -70,29 +79,27 @@ class Producto extends Model
 
     public function eliminar()
     {
-        $sql = "DELETE FROM pedidos WHERE idpedido=?";
-        $affected = DB::delete($sql, [$this->idpedido]);
+        $sql = "DELETE FROM productos WHERE idproducto=?";
+        $affected = DB::delete($sql, [$this->idproducto]);
     }
 
     public function insertar()
     {
-        $sql = "INSERT INTO pedidos (
-                    fecha,
-                    descripcion,
-                    total,
-                    fk_idsucursal,
-                    fk_idcliente,
-                    fk_idestado
-            ) VALUES (?, ?, ?, ?, ?, ?);";
+        $sql = "INSERT INTO productos (
+                    nombre,
+                    cantidad,
+                    precio,
+                    imagen,
+                    fk_idcategoria
+            ) VALUES (?, ?, ?, ?, ?);";
         $result = DB::insert($sql, [
-            $this->fecha,
-            $this->descripcion,
-            $this->total,
-            $this->fk_idsucursal,
-            $this->fk_idcliente,
-            $this->fk_idestado
+            $this->nombre,
+            $this->cantidad,
+            $this->precio,
+            $this->imagen,
+            $this->fk_idcategoria
         ]);
-        return $this->idpedido = DB::getPdo()->lastInsertId();
+        return $this->idproducto = DB::getPdo()->lastInsertId();
     }
 
 }

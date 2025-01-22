@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Entidades\Pedido;
+use App\Entidades\Sucursal;
+use App\Entidades\Cliente;
+use App\Entidades\Estado;
 use Illuminate\Http\Request;
 require app_path().'/start/constants.php';
 
@@ -11,7 +14,13 @@ class ControladorPedido extends Controller
       public function nuevo()
       {
             $titulo = "Nuevo pedido";
-            return view("sistema.pedido-nuevo", compact("titulo"));
+            $sucursal = new Sucursal();
+            $aSucursales = $sucursal->obtenerTodos();
+            $cliente = new Cliente();
+            $aClientes = $cliente->obtenerTodos();
+            $estado = new Estado();
+            $aEstados = $estado->obtenerTodos();
+            return view("sistema.pedido-nuevo", compact("titulo", "aSucursales", "aClientes", "aEstados"));
       }
 
       public function guardar(Request $request) {
@@ -22,7 +31,7 @@ class ControladorPedido extends Controller
                 $entidad->cargarDesdeRequest($request);
     
                 //validaciones
-                if ($entidad->fecha == "" || $entidad->descripcion == "" || $entidad->total == "") {
+                if ($entidad->fecha == "" || $entidad->descripcion == "" || $entidad->total == "" || $entidad->fk_idsucursal == "" || $entidad->fk_idcliente == "" || $entidad->fk_idestado == "") {
                     $msg["ESTADO"] = MSG_ERROR;
                     $msg["MSG"] = "Complete todos los datos";
                 } else {
