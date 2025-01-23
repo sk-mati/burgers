@@ -102,6 +102,43 @@ class Producto extends Model
         return $this->idproducto = DB::getPdo()->lastInsertId();
     }
 
+    public function obtenerFiltrado()
+    {
+        $request = $_REQUEST;
+        $columns = array(
+            0 => 'nombre',
+            1 => 'cantidad',
+            2 => 'precio',
+            3 => 'imagen',
+            4 => 'fk_idcategoria',
+        );
+        $sql = "SELECT DISTINCT
+                        idproducto,
+                        nombre,
+                        cantidad,
+                        precio,
+                        imagen,
+                        fk_idcategoria
+                    FROM productos
+                    WHERE 1=1
+                ";
+
+        //Realiza el filtrado
+        if (!empty($request['search']['value'])) {
+            $sql .= " AND ( nombre LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR cantidad LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR precio LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR imagen LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR fk_idcategoria LIKE '%" . $request['search']['value'] . "%' )";
+
+        }
+        $sql .= " ORDER BY " . $columns[$request['order'][0]['column']] . "   " . $request['order'][0]['dir'];
+
+        $lstRetorno = DB::select($sql);
+
+        return $lstRetorno;
+    }
+
 }
 
 ?>

@@ -2,16 +2,16 @@
 
 namespace App\Entidades;
 
-use DB;//Es como el mysqli anteriormente utilizado
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Pedido extends Model
 {
 
     protected $table = 'pedidos';
-    public $timestamps = false;//Si es true, inserta una marca en la base de datos con fecha y hora de inserción
+    public $timestamps = false;
 
-    protected $fillable = [ //Son los campos de la tabla clientes en la BBDD
+    protected $fillable = [ 
         'idpedido', 'fecha', 'descripcion', 'total', 'fk_idsucursal', 'fk_idcliente', 'fk_idestado',
     ];
 
@@ -29,9 +29,8 @@ class Pedido extends Model
         $this->fk_idestado = $request->input('lstEstado');
     }
 
-    public function obtenerTodos() //Método
+    public function obtenerTodos() 
     {
-        //Arma la query
         $sql = "SELECT 
                   idpedido,
                   fecha,
@@ -41,9 +40,8 @@ class Pedido extends Model
                   fk_idcliente,
                   fk_idestado
                 FROM pedidos";
-        //Ejecuta la query
-        $lstRetorno = DB::select($sql); //Método static. Permite llamar sin instanciar. Hace todo el fetch_assoc en una línea.
-        return $lstRetorno; //Devuelve array con datos.
+        $lstRetorno = DB::select($sql); 
+        return $lstRetorno; 
     }
 
     public function obtenerPorId($idPedido)
@@ -80,8 +78,8 @@ class Pedido extends Model
             fk_idcliente=$this->fk_idcliente
             fk_idestado=$this->fk_idestado
 
-            WHERE idpedido=?"; //El signo de interrogación indica que lo busca en el parámetro (más seguro). Filtro de inyeccioón SQL.
-        $affected = DB::update($sql, [$this->idpedido]); //Arma la query por parámetro
+            WHERE idpedido=?"; 
+        $affected = DB::update($sql, [$this->idpedido]); 
     }
 
     public function eliminar()
@@ -109,6 +107,46 @@ class Pedido extends Model
             $this->fk_idestado
         ]);
         return $this->idpedido = DB::getPdo()->lastInsertId();
+    }
+
+    public function obtenerFiltrado()
+    {
+        $request = $_REQUEST;
+        $columns = array(
+            0 => 'fecha',
+            1 => 'descripcion',
+            2 => 'total',
+            3 => 'fk_idsucursal',
+            4 => 'fk_idcliente',
+            5 => 'fk_idestado',
+        );
+        $sql = "SELECT DISTINCT
+                        idpedido,
+                        fecha,
+                        descripcion,
+                        total,
+                        fk_idsucursal,
+                        fk_idcliente,
+                        fk_idestado
+                    FROM pedidos
+                    WHERE 1=1
+                ";
+
+        //Realiza el filtrado
+        if (!empty($request['search']['value'])) {
+            $sql .= " AND ( fecha LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR descripcion LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR correo LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR total LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR fk_idsucursal LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR fk_idcliente LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR fk_idestado LIKE '%" . $request['search']['value'] . "%' )";
+        }
+        $sql .= " ORDER BY " . $columns[$request['order'][0]['column']] . "   " . $request['order'][0]['dir'];
+
+        $lstRetorno = DB::select($sql);
+
+        return $lstRetorno;
     }
 
 }

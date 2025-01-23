@@ -2,18 +2,18 @@
 @section('titulo', $titulo)
 @section('scripts')
 <script>
-      globalId = '<?php echo isset($pedido->idpedido) && $pedido->idpedido > 0 ? $pedido->idpedido : 0; ?>';
-      <?php $globalId = isset($pedido->idpedido) ? $pedido->idpedido : "0"; ?>
+      globalId = '<?php echo isset($postulacion->idpostulacion) && $postulacion->idpostulacion > 0 ? $postulacion->idpostulacion : 0; ?>';
+      <?php $globalId = isset($postulacion->idpostulacion) ? $postulacion->idpostulacion : "0"; ?>
 </script>
 @endsection
 @section('breadcrumb')
 <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/admin/home">Inicio</a></li>
-      <li class="breadcrumb-item"><a href="/admin/pedidos">Pedidos</a></li>
+      <li class="breadcrumb-item"><a href="/admin/postulaciones">Postulaciones</a></li>
       <li class="breadcrumb-item active">Modificar</li>
 </ol>
 <ol class="toolbar">
-      <li class="btn-item"><a title="Nuevo" href="/admin/pedido/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
+      <li class="btn-item"><a title="Nuevo" href="/admin/postulacion/nuevo" class="fa fa-plus-circle" aria-hidden="true"><span>Nuevo</span></a></li>
       <li class="btn-item"><a title="Guardar" href="#" class="fa fa-floppy-o" aria-hidden="true" onclick="javascript: $('#modalGuardar').modal('toggle');"><span>Guardar</span></a>
       </li>
       @if($globalId > 0)
@@ -40,57 +40,37 @@ if (isset($msg)) {
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
-                        <label>Fecha: *</label>
-                        <input type="date" id="txtFecha" name="txtFecha" class="form-control" value="" required>
+                        <label>Nombre: *</label>
+                        <input type="text" id="txtNombre" name="txtNombre" class="form-control" value="" required>
                   </div>
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
-                        <label>Descripción: *</label>
-                        <input type="text" id="txtDescripcion" name="txtDescripcion" class="form-control" value="" required>
-                  </div>
-            </div>
-            <div class="row">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                  <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
-                  <div class="form-group col-6">
-                        <label>Total: *</label>
-                        <input type="text" id="txtTotal" name="txtTotal" class="form-control" value="" required>
-                  </div>
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                  <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
-                  <div class="form-group col-6">
-                        <label>Sucursal: *</label>
-                        <select name="lstSucursal" id="lstSucursal" class="form-control selectpicker">
-                              <option value="" disabled selected>Seleccionar</option>
-                              @foreach($aSucursales as $sucursal)
-                                    <option value="{{ $sucursal->idsucursal }}">{{ $sucursal->direccion }}</option>
-                              @endforeach
-                        </select>
+                        <label>Apellido: *</label>
+                        <input type="text" id="txtApellido" name="txtApellido" class="form-control" value="" required>
                   </div>
             </div>
             <div class="row">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
-                        <label>Cliente: *</label>
-                        <select name="lstCliente" id="lstCliente" class="form-control selectpicker">
-                              <option value="" disabled selected>Seleccionar</option>
-                              @foreach($aClientes as $cliente)
-                                    <option value="{{ $cliente->idcliente }}">{{ $cliente->nombre }}</option>
-                              @endforeach
-                        </select>
+                        <label>Celular: *</label>
+                        <input type="text" id="txtCelular" name="txtCelular" class="form-control" value="" required>
                   </div>
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
-                        <label>Estado: *</label>
-                        <select name="lstEstado" id="lstEstado" class="form-control selectpicker">
-                              <option value="" disabled selected>Seleccionar</option>
-                              @foreach($aEstados as $estado)
-                                    <option value="{{ $estado->idestado }}">{{ $estado->nombre }}</option>
-                              @endforeach
-                        </select>
+                        <label>Correo: *</label>
+                        <input type="text" id="txtCorreo" name="txtCorreo" class="form-control" value="" required>
+                  </div>
+            </div>
+            <div class="row">
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+                  <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
+                  <div class="form-group col-6">
+                        <label>Curriculum: *</label>
+                        <input type="file" name="archivo" id="archivo" accept=".pdf" value="" required>
+                        <p>Archivos admitidos: .pdf</p>
                   </div>
             </div>
       </form>

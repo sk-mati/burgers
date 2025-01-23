@@ -12,12 +12,21 @@ class Postulacion extends Model
     public $timestamps = false;
 
     protected $fillable = [ 
-        'idpostulacion', 'nombre', 'apellido', 'celular', 'correo', 'curriculum',
+        'idpostulacion', 'nombre', 'apellido', 'celular', 'correo', 'curriculum'
     ];
 
     protected $hidden = [
 
     ];
+
+    public function cargarDesdeRequest($request) {
+        $this->idpostulacion = $request->input('id') != "0" ? $request->input('id') : $this->idpostulacion;
+        $this->nombre = $request->input('txtNombre');
+        $this->apellido = $request->input('txtApellido');
+        $this->celular = $request->input('txtCelular');
+        $this->correo = $request->input('txtCorreo');
+        $this->curriculum = $request->input('archivo');
+    }
 
     public function obtenerTodos() 
     {
@@ -89,9 +98,46 @@ class Postulacion extends Model
             $this->apellido,
             $this->celular,
             $this->correo,
-            $this->curriculum,
+            $this->curriculum
         ]);
         return $this->idpostulacion = DB::getPdo()->lastInsertId();
+    }
+
+    public function obtenerFiltrado()
+    {
+        $request = $_REQUEST;
+        $columns = array(
+            0 => 'nombre',
+            1 => 'apellido',
+            2 => 'celular',
+            3 => 'correo',
+            4 => 'curriculum',
+        );
+        $sql = "SELECT DISTINCT
+                        idpostulacion,
+                        nombre,
+                        apellido,
+                        celular,
+                        correo,
+                        curriculum
+                    FROM postulaciones
+                    WHERE 1=1
+                ";
+
+        //Realiza el filtrado
+        if (!empty($request['search']['value'])) {
+            $sql .= " AND ( nombre LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR apellido LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR celular LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR correo LIKE '%" . $request['search']['value'] . "%' ";
+            $sql .= " OR curriculum LIKE '%" . $request['search']['value'] . "%' )";
+
+        }
+        $sql .= " ORDER BY " . $columns[$request['order'][0]['column']] . "   " . $request['order'][0]['dir'];
+
+        $lstRetorno = DB::select($sql);
+
+        return $lstRetorno;
     }
 
 }
