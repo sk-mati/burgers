@@ -12,9 +12,10 @@ class ControladorProducto extends Controller
       public function nuevo()
       {
             $titulo = "Nuevo producto";
+            $producto = new Producto();
             $categoria = new Categoria();
             $aCategorias = $categoria->obtenerTodos();
-            return view("sistema.producto-nuevo", compact("titulo", "aCategorias"));
+            return view("sistema.producto-nuevo", compact("titulo", "producto", "aCategorias"));
       }
 
       public function index()
@@ -79,7 +80,7 @@ class ControladorProducto extends Controller
 
         for ($i = $inicio; $i < count($aProductos) && $cont < $registros_por_pagina; $i++) {
             $row = array();
-            $row[] = '<a href="/admin/sistema/producto/' . $aProductos[$i]->idproducto . '">' . $aProductos[$i]->nombre . '</a>';
+            $row[] = '<a href="/admin/producto/' . $aProductos[$i]->idproducto . '">' . $aProductos[$i]->nombre . '</a>';
             $row[] = $aProductos[$i]->cantidad;
             $row[] = $aProductos[$i]->precio;
             $row[] = $aProductos[$i]->imagen;
@@ -95,5 +96,12 @@ class ControladorProducto extends Controller
             "data" => $data,
         );
         return json_encode($json_data);
+    }
+
+    public function editar($idProducto){
+        $titulo = "Edición de producto";
+        $producto = new Producto();
+        $producto->obtenerPorId($idProducto);
+        return view("sistema.producto-nuevo", compact("titulo", "producto"));
     }
 }

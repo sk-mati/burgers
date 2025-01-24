@@ -41,13 +41,13 @@ if (isset($msg)) {
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
                         <label>Fecha: *</label>
-                        <input type="date" id="txtFecha" name="txtFecha" class="form-control" value="" required>
+                        <input type="date" id="txtFecha" name="txtFecha" class="form-control" value="{{ $pedido->fecha }}" required>
                   </div>
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
                         <label>Descripción: *</label>
-                        <input type="text" id="txtDescripcion" name="txtDescripcion" class="form-control" value="" required>
+                        <input type="text" id="txtDescripcion" name="txtDescripcion" class="form-control" value="{{ $pedido->descripcion }}" required>
                   </div>
             </div>
             <div class="row">
@@ -55,7 +55,7 @@ if (isset($msg)) {
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
                         <label>Total: *</label>
-                        <input type="text" id="txtTotal" name="txtTotal" class="form-control" value="" required>
+                        <input type="text" id="txtTotal" name="txtTotal" class="form-control" value="{{ $pedido->total }}" required>
                   </div>
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>

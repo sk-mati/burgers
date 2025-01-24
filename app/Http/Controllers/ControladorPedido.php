@@ -14,13 +14,14 @@ class ControladorPedido extends Controller
       public function nuevo()
       {
             $titulo = "Nuevo pedido";
+            $pedido = new Pedido();
             $sucursal = new Sucursal();
             $aSucursales = $sucursal->obtenerTodos();
             $cliente = new Cliente();
             $aClientes = $cliente->obtenerTodos();
             $estado = new Estado();
             $aEstados = $estado->obtenerTodos();
-            return view("sistema.pedido-nuevo", compact("titulo", "aSucursales", "aClientes", "aEstados"));
+            return view("sistema.pedido-nuevo", compact("titulo", "pedido", "aSucursales", "aClientes", "aEstados"));
       }
 
       public function index()
@@ -85,7 +86,7 @@ class ControladorPedido extends Controller
 
         for ($i = $inicio; $i < count($aPedidos) && $cont < $registros_por_pagina; $i++) {
             $row = array();
-            $row[] = '<a href="/admin/sistema/pedido/' . $aPedidos[$i]->idpedido . '">' . $aPedidos[$i]->fecha . '</a>';
+            $row[] = '<a href="/admin/pedido/' . $aPedidos[$i]->idpedido . '">' . $aPedidos[$i]->fecha . '</a>';
             $row[] = $aPedidos[$i]->descripcion;
             $row[] = $aPedidos[$i]->total;
             $row[] = $aPedidos[$i]->fk_idsucursal;
@@ -103,4 +104,11 @@ class ControladorPedido extends Controller
         );
         return json_encode($json_data);
     }
+
+        public function editar($idPedido){
+            $titulo = "Edición de pedido";
+            $pedido = new Pedido();
+            $pedido->obtenerPorId($idPedido);
+            return view("sistema.pedido-nuevo", compact("titulo", "pedido"));
+        }
 }
