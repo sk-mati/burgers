@@ -59,8 +59,10 @@ class ControladorProducto extends Controller
             $id = $entidad->idproducto;
             $producto = new Producto();
             $producto->obtenerPorId($id);
+            $categoria = new Categoria();
+            $aCategorias = $categoria->obtenerTodos();
 
-            return view('sistema.producto-nuevo', compact('msg', 'producto', 'titulo')) . '?id=' . $producto->idproducto;
+            return view('sistema.producto-nuevo', compact('msg', 'producto', 'titulo', 'aCategorias')) . '?id=' . $producto->idproducto;
     
       }
 
@@ -102,6 +104,8 @@ class ControladorProducto extends Controller
         $titulo = "Edición de producto";
         $producto = new Producto();
         $producto->obtenerPorId($idProducto);
-        return view("sistema.producto-nuevo", compact("titulo", "producto"));
+        $categoria = new Categoria();
+        $aCategorias = $categoria->obtenerTodos();
+        return view("sistema.producto-nuevo", compact("titulo", "producto", "aCategorias"));
     }
 }
