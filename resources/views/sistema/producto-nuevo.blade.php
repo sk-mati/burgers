@@ -30,10 +30,10 @@
 @section('contenido')
 <?php
 if (isset($msg)) {
-      echo '<div id = "msg"></div>';
       echo '<script>msgShow("' . $msg["MSG"] . '", "' . $msg["ESTADO"] . '")</script>';
 }
 ?>
+<div id = "msg"></div>
 <div class="panel-body">
       <form id="form1" method="POST">
             <div class="row">
@@ -90,5 +90,23 @@ if (isset($msg)) {
                         return false;
                   }
             }
+
+            function eliminar() {
+            $.ajax({
+            type: "GET",
+            url: "{{ asset('admin/producto/eliminar') }}",
+            data: { id:globalId },
+            async: true,
+            dataType: "json",
+            success: function (data) {
+                if (data.err = "0") {
+                    msgShow(data.mensaje, "success");
+                } else {
+                    msgShow(data.mensaje, "danger");
+                }
+                $('#mdlEliminar').modal('toggle');
+            }
+            });
+            }
       </script>
-      @endsection
+@endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Entidades\Cliente;
+use App\Entidades\Pedido;
 use Illuminate\Http\Request;
 require app_path().'/start/constants.php';
 
@@ -103,5 +104,22 @@ class ControladorCliente extends Controller
         $cliente = new Cliente();
         $cliente->obtenerPorId($idCliente);
         return view("sistema.cliente-nuevo", compact("titulo", "cliente"));
+    }
+
+    public function eliminar(Request $request){
+        $idCliente = $request->input("id");
+        $pedido = new Pedido();
+
+        if($pedido->existePedidosPorCliente($idCliente)) {
+            $resultado["err"] = EXIT_FAILURE;
+            $resultado["mensaje"] = "No se puede eliminar un cliente con pedidos asociados.";
+        } else {
+            $cliente = new Cliente();
+            $cliente->idcliente = $idCliente;
+            $cliente->eliminar();
+            $resultado["err"] = EXIT_SUCCESS;
+            $resultado["mensaje"] = "Registro eliminado exitosamente.";
+        }
+        return json_encode($resultado);
     }
 }

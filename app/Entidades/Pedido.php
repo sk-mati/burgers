@@ -71,13 +71,12 @@ class Pedido extends Model
 
     public function guardar() {
         $sql = "UPDATE pedidos SET
-            fecha=$this->fecha,
-            descripcion=$this->descripcion,
-            total=$this->total
-            fk_idsucursal=$this->fk_idsucursal
-            fk_idcliente=$this->fk_idcliente
+            fecha='$this->fecha',
+            descripcion='$this->descripcion',
+            total=$this->total,
+            fk_idsucursal=$this->fk_idsucursal,
+            fk_idcliente=$this->fk_idcliente,
             fk_idestado=$this->fk_idestado
-
             WHERE idpedido=?"; 
         $affected = DB::update($sql, [$this->idpedido]); 
     }
@@ -149,6 +148,34 @@ class Pedido extends Model
         return $lstRetorno;
     }
 
+    public function existePedidosPorCliente($idCliente) {
+        $sql = "SELECT
+                    idpedido,
+                    fecha,
+                    descripcion,
+                    total,
+                    fk_idsucursal,
+                    fk_idcliente,
+                    fk_idestado
+                FROM pedidos WHERE fk_idcliente = $idCliente";
+        $lstRetorno = DB::select($sql);
+
+        return (count($lstRetorno) > 0);
+    }
+
+    public function existePedidosPorProducto($idProducto) {
+        $sql = "SELECT
+                    idpedidoproducto,
+                    fk_idpedido,
+                    fk_idproducto,
+                    cantidad,
+                    precio_unitario,
+                    total
+                FROM pedidos_productos WHERE fk_idproducto = $idProducto";
+        $lstRetorno = DB::select($sql);
+
+        return (count($lstRetorno) > 0);
+    }
 }
 
 ?>

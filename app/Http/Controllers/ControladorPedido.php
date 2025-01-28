@@ -65,8 +65,14 @@ class ControladorPedido extends Controller
             $id = $entidad->idpedido;
             $pedido = new Pedido();
             $pedido->obtenerPorId($id);
+            $sucursal = new Sucursal();
+            $aSucursales = $sucursal->obtenerTodos();
+            $cliente = new Cliente();
+            $aClientes = $cliente->obtenerTodos();
+            $estado = new Estado();
+            $aEstados = $estado->obtenerTodos();
 
-            return view('sistema.pedido-nuevo', compact('msg', 'pedido', 'titulo')) . '?id=' . $pedido->idpedido;
+            return view('sistema.pedido-nuevo', compact('msg', 'pedido', 'titulo', 'aSucursales', 'aClientes', 'aEstados')) . '?id=' . $pedido->idpedido;
     
       }
 
@@ -109,6 +115,12 @@ class ControladorPedido extends Controller
             $titulo = "Edición de pedido";
             $pedido = new Pedido();
             $pedido->obtenerPorId($idPedido);
-            return view("sistema.pedido-nuevo", compact("titulo", "pedido"));
+            $sucursal = new Sucursal();
+            $aSucursales = $sucursal->obtenerTodos();
+            $cliente = new Cliente();
+            $aClientes = $cliente->obtenerTodos();
+            $estado = new Estado();
+            $aEstados = $estado->obtenerTodos();
+            return view("sistema.pedido-nuevo", compact("titulo", "pedido", "aSucursales", "aClientes", "aEstados"));
         }
 }
