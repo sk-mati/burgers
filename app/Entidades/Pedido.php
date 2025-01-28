@@ -130,7 +130,6 @@ class Pedido extends Model
                     FROM pedidos
                     WHERE 1=1
                 ";
-
         //Realiza el filtrado
         if (!empty($request['search']['value'])) {
             $sql .= " AND ( fecha LIKE '%" . $request['search']['value'] . "%' ";

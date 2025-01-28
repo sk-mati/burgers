@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Entidades\Postulacion;
+use App\Entidades\Sistema\Patente;
+use App\Entidades\Sistema\Usuario;
 use Illuminate\Http\Request;
 require app_path().'/start/constants.php';
 
@@ -11,14 +13,36 @@ class ControladorPostulacion extends Controller
       public function nuevo()
       {
             $titulo = "Nueva postulación";
-            $postulacion = new Postulacion();
-            return view("sistema.postulacion-nuevo", compact("titulo", "postulacion"));
+
+            if (Usuario::autenticado() == true) {
+                if (!Patente::autorizarOperacion("POSTULANTEALTA")) {
+                    $codigo = "POSTULANTEALTA";
+                    $mensaje = "No tiene permisos para la operación.";
+                    return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+                } else {
+                    $postulacion = new Postulacion();
+                    return view("sistema.postulacion-nuevo", compact("titulo", "postulacion"));
+                }
+            } else {
+                return redirect('admin/login');
+            }
       }
 
       public function index()
       {
         $titulo = "Listado de postulaciones";
-        return view("sistema.postulacion-listar", compact("titulo"));
+
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("POSTULANTECONSULTA")) {
+                $codigo = "POSTULANTECONSULTA";
+                $mensaje = "No tiene permisos para la operación.";
+                return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+            } else {
+                return view("sistema.postulacion-listar", compact("titulo"));
+            }
+        } else {
+            return redirect('admin/login');
+        }
       }
 
       public function guardar(Request $request) {
@@ -96,9 +120,42 @@ class ControladorPostulacion extends Controller
     }
 
     public function editar($idPostulacion){
-        $titulo = "Edición de pedido";
-        $postulacion = new Postulacion();
-        $postulacion->obtenerPorId($idPostulacion);
-        return view("sistema.postulacion-nuevo", compact("titulo", "postulacion"));
+        $titulo = "Edición de postulación";
+
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("POSTULANTEEDITAR")) {
+                $codigo = "POSTULANTEEDITAR";
+                $mensaje = "No tiene permisos para la operación.";
+                return view('sistema.pagina-error', compact('titulo', 'codigo', 'mensaje'));
+            } else {
+                $postulacion = new Postulacion();
+                $postulacion->obtenerPorId($idPostulacion);
+                return view("sistema.postulacion-nuevo", compact("titulo", "postulacion"));
+            }
+        } else {
+            return redirect('admin/login');
+        }
+    }
+
+    public function eliminar(Request $request){
+
+        if (Usuario::autenticado() == true) {
+            if (!Patente::autorizarOperacion("POSTULANTEBAJA")) {
+                $resultado["err"] = EXIT_FAILURE;
+                $resultado["mensaje"] = "No tiene permisos para la operación.";
+            } else {
+                $idPostulacion = $request->input("id");
+                $postulacion = new Postulacion();
+
+                $postulacion->idpostulacion = $idPostulacion;
+                $postulacion->eliminar();
+                $resultado["err"] = EXIT_SUCCESS;
+                $resultado["mensaje"] = "Registro eliminado exitosamente.";
+                }
+            } else {
+            $resultado["err"] = EXIT_FAILURE;
+            $resultado["mensaje"] = "Usuario no autenticado";
+        }
+        return json_encode($resultado);
     }
 }
