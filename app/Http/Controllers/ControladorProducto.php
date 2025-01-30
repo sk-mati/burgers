@@ -111,7 +111,7 @@ class ControladorProducto extends Controller
             $row[] = $aProductos[$i]->cantidad;
             $row[] = $aProductos[$i]->precio;
             $row[] = $aProductos[$i]->imagen;
-            $row[] = $aProductos[$i]->fk_idcategoria;
+            $row[] = $aProductos[$i]->categoria;
             $cont++;
             $data[] = $row;
         }

@@ -1,6 +1,5 @@
 @extends("web.plantilla")
 @section("contenido")
-<!-- book section -->
 <section class="book_section layout_padding">
     <div class="container">
       <div class="heading_container">
@@ -59,5 +58,4 @@
       </div>
     </div>
   </section>
-  <!-- end book section -->
-   @endsection
+@endsection

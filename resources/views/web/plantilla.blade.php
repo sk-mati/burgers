@@ -13,7 +13,7 @@
   <meta name="author" content="" />
   <link rel="shortcut icon" href="web/web/images/favicon.png" type="">
 
-  <title> Feane </title>
+  <title> Burgers SRL </title>
 
   <!-- bootstrap core css -->
   <link rel="stylesheet" type="text/css" href="web/css/bootstrap.css" />
@@ -42,9 +42,9 @@
     <header class="header_section">
       <div class="container">
         <nav class="navbar navbar-expand-lg custom_nav-container ">
-          <a class="navbar-brand" href="index.html">
+          <a class="navbar-brand" href="/">
             <span>
-              Feane
+              Burgers SRL
             </span>
           </a>
 
@@ -125,7 +125,7 @@
                   </g>
                 </svg>
               </a>
-              <a href="" class="order_online">
+              <a href="/login" class="order_online">
                 Ingresar
               </a>
             </div>
@@ -146,70 +146,87 @@
         <div class="col-md-4 footer-col">
           <div class="footer_contact">
             <h4>
-              Contact Us
+              Sucursal 1
             </h4>
             <div class="contact_link_box">
               <a href="">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <span>
-                  Location
+                  Buenos Aires
                 </span>
               </a>
               <a href="">
                 <i class="fa fa-phone" aria-hidden="true"></i>
                 <span>
-                  Call +01 1234567890
+                  2611122333
                 </span>
               </a>
               <a href="">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
                 <span>
-                  demo@gmail.com
+                  bsas@email.com
                 </span>
               </a>
             </div>
           </div>
         </div>
         <div class="col-md-4 footer-col">
-          <div class="footer_detail">
-            <a href="" class="footer-logo">
-              Feane
-            </a>
-            <p>
-              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
-            </p>
-            <div class="footer_social">
+          <div class="footer_contact">
+            <h4>
+              Sucursal 2
+            </h4>
+            <div class="contact_link_box">
               <a href="">
-                <i class="fa fa-facebook" aria-hidden="true"></i>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Mendoza
+                </span>
               </a>
               <a href="">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  2612233444
+                </span>
               </a>
               <a href="">
-                <i class="fa fa-linkedin" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-instagram" aria-hidden="true"></i>
-              </a>
-              <a href="">
-                <i class="fa fa-pinterest" aria-hidden="true"></i>
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  mza@email.com
+                </span>
               </a>
             </div>
           </div>
         </div>
         <div class="col-md-4 footer-col">
-          <h4>
-            Opening Hours
-          </h4>
-          <p>
-            Everyday
-          </p>
-          <p>
-            10.00 Am -10.00 Pm
-          </p>
+          <div class="footer_contact">
+            <h4>
+              Sucursal 3
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Córdoba
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  2613344555
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  cba@email.com
+                </span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="footer-info">
+    </div>
+    <div class="footer-info">
         <p>
           &copy; <span id="displayYear"></span> All Rights Reserved By
           <a href="https://html.design/">Free Html Templates</a><br><br>
