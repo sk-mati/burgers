@@ -1,9 +1,6 @@
 @extends("web.plantilla")
 @section("contenido")
-
-  <!-- food section -->
-
-  <section class="food_section layout_padding">
+<section class="food_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
         <h2>

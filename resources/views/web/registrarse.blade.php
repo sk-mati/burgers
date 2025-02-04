@@ -27,7 +27,7 @@
                 <input type="password" class="form-control" placeholder="Clave" id="txtClave" name="txtClave"/>
               </div>
               <div class="">
-                <button type="submit" class="btn btn-hover">
+                <button type="submit" class="btn btn-primary">
                   Enviar
                 </button>
               </div>

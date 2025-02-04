@@ -35,9 +35,8 @@ class ControladorWebRegistrarse extends Controller
             $msg["MSG"] = "Complete todos los datos";
             return view("web.registrarse", compact('titulo', 'msg', 'aSucursales'));
         } else {
-                $entidad->guardar();
-                $mensaje = "Registro exitoso.";
-                return view("web.login", compact('aSucursales', 'mensaje'));
-            }  
+            $entidad->insertar();
+            return redirect("/login");
+        }  
     }
 }
