@@ -125,9 +125,15 @@
                   </g>
                 </svg>
               </a>
+              @if(Session::get("idCliente") && Session::get("idCliente") > 0)
+              <a href="/logout" class="order_online">
+                Cerrar sesión
+              </a>
+              @else
               <a href="/login" class="order_online">
                 Ingresar
               </a>
+              @endif
             </div>
           </div>
         </nav>
@@ -228,10 +234,8 @@
     </div>
     <div class="footer-info">
         <p>
-          &copy; <span id="displayYear"></span> All Rights Reserved By
-          <a href="https://html.design/">Free Html Templates</a><br><br>
-          &copy; <span id="displayYear"></span> Distributed By
-          <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+          &copy; <span></span>burgers@email.com<br><br>
+          &copy; <span></span>redes sociales
         </p>
       </div>
     </div>
