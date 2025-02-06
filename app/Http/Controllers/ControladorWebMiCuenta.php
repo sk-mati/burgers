@@ -23,10 +23,7 @@ class ControladorWebMiCuenta extends Controller
         $sucursal = new Sucursal;
         $aSucursales = $sucursal->obtenerTodos();
 
-        $pedido = new Pedido();
-        $aPedidos = $pedido->obtenerPedidosPorCliente($idCliente);
-
-        return view("web.mi-cuenta", compact("cliente", "aSucursales", "aPedidos"));
+        return view("web.mi-cuenta", compact("cliente", "aSucursales"));
         } else {
             return redirect("/login");
         }

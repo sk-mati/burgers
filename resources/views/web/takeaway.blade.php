@@ -1,6 +1,9 @@
 @extends("web.plantilla")
 @section("contenido")
-<section class="food_section layout_padding">
+
+  <!-- food section -->
+
+  <section class="food_section layout_padding">
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
@@ -9,19 +12,24 @@
       </div>
 
       <ul class="filters_menu">
-        <li class="active" data-filter="*">Todos</li>
-        @foreach($aCategorias AS $categoria)
-        <li data-filter=".burger">{{ $categoria->nombre}}</li>
-        @endforeach
+        <li class="active" data-filter="*">All</li>
+        <li data-filter=".fk_idcategoria">Burger</li>
+        <li data-filter=".fk_idcategoria">Pizza</li>
+        <li data-filter=".fk_idcategoria">Pasta</li>
+        <li data-filter=".fk_idcategoria">Fries</li>
       </ul>
 
       <div class="filters-content">
+      
         <div class="row grid">
-          <div class="col-sm-6 col-lg-4 all {{ $producto->categoria }}">
+        @foreach($aProductos AS $producto)
+          <div class="col-sm-6 col-lg-4 d-block all {{ $producto->fk_idcategoria }}">
+          
             <div class="box">
+            
               <div>
                 <div class="img-box">
-                  <img src="/files/{{ $producto->imagen }}" alt="">
+                  <img src="web/images/f1.png" alt="">
                 </div>
                 <div class="detail-box">
                   <h5>
@@ -32,19 +40,18 @@
                   </p>
                   <div class="options">
                     <h6>
-                      ${{ number_format($producto->precio, 0, ",", ".") }}
+                      ${{ $producto->precio }}
                     </h6>
-                    <form action="" method="POST">
-                      <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                      <input type="hidden" id="txtProducto" name="txtProducto" class="form-control" style="width: 50px;" value="{{ $producto->idproducto }}" required>
-                      <input type="text" id="txtCantidad" name="txtCantidad" class="form-control" style="width: 50px;" value="{{ $producto->cantidad }}" required>
-                    </form>
-                    <button type="submit">Agregar</button>
+                    <a href=""></a>
+        
+                    
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          </div>
+          @endforeach
       <div class="btn-box">
         <a href="">
           View More
