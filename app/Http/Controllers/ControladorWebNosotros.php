@@ -8,4 +8,9 @@ class ControladorWebNosotros extends Controller
     {
             return view("web.nosotros");
     }
+
+    public function insertarPostulacion()
+    {
+        
+    }
 }

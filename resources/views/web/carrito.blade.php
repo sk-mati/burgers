@@ -1,5 +1,5 @@
 @extends("web.plantilla")
-@section("banner")
+@section("contenido")
 <section class="carrito layout_padding">
       <div class="container">
             <div class="heading_container">
@@ -8,7 +8,6 @@
                   </h2>
             </div>
             <div class="row">
-                  @if($aCarritos)
                   <div class="col-md-9">
                         <div class="row mt-2 p-2">
                               <div class="col-md-12">
@@ -24,7 +23,6 @@
                                                 </tr>
                                           </thead>
                                           <tbody>
-                                                @foreach($aCarritos AS $carrito)
                                                 <tr>
                                                       <form action="" method="POST">
                                                             

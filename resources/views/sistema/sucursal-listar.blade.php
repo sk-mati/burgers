@@ -24,6 +24,7 @@ if (isset($msg)) {
 <table id="grilla" class="display">
     <thead>
         <tr>
+            <th>Nombre</th>
             <th>Teléfono</th>
             <th>Dirección</th>
             <th>Link del mapa</th>

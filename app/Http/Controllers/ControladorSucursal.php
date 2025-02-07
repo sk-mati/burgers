@@ -51,7 +51,7 @@ class ControladorSucursal extends Controller
                 $entidad = new Sucursal();
                 $entidad->cargarDesdeRequest($request);
 
-                if ($entidad->telefono == "" || $entidad->direccion == "" || $entidad->linkmapa == "") {
+                if ($entidad->telefono == "" || $entidad->direccion == "" || $entidad->linkmapa == "" || $entidad->nombre == "") {
                     $msg["ESTADO"] = MSG_ERROR;
                     $msg["MSG"] = "Complete todos los datos";
                 } else {
@@ -101,13 +101,14 @@ class ControladorSucursal extends Controller
 
         for ($i = $inicio; $i < count($aSucursales) && $cont < $registros_por_pagina; $i++) {
             $row = array();
-            $row[] = '<a href="/admin/sucursal/' . $aSucursales[$i]->idsucursal . '">' . $aSucursales[$i]->telefono . '</a>';
-            $row[] = $aSucursales[$i]->direccion . '</a>';
-            $row[] = $aSucursales[$i]->linkmapa . '</a>';
+            $row[] = '<a href="/admin/sucursal/' . $aSucursales[$i]->idsucursal . '">' . $aSucursales[$i]->nombre . '</a>';
+            $row[] = $aSucursales[$i]->telefono;
+            $row[] = $aSucursales[$i]->direccion;
+            $row[] = '<a href="' . $aSucursales[$i]->linkmapa . '">' . "Dirección" . '</a>';
             $cont++;
             $data[] = $row;
         }
-
+        
         $json_data = array(
             "draw" => intval($request['draw']),
             "recordsTotal" => count($aSucursales), //cantidad total de registros sin paginar

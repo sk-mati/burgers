@@ -3,19 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Entidades\Producto;
-use Illuminate\Http\Request;
-require app_path() . '/start/constants.php';
-
-use Session;
-
+use App\Entidades\Sucursal;
+use App\Entidades\Categoria;
 
 class ControladorWebTakeaway extends Controller
 {
     public function index()
     {
+        $sucursal = new Sucursal();
+        $aSucursales = $sucursal->obtenerTodos();
+
         $producto = new Producto();
         $aProductos = $producto->obtenerTodos();
 
-        return view("web.takeaway", compact('producto', 'aProductos'));
+        $categoria = new Categoria();
+        $aCategorias = $categoria->obtenerTodos();
+
+        return view("web.takeaway", compact('sucursal', 'aSucursales', 'producto', 'aProductos', 'categoria', 'aCategorias'));
+    }
+
+    public function insertar()
+    {
+        
     }
 }

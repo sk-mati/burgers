@@ -47,7 +47,7 @@ if (isset($msg)) {
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
                         <label>Descripción: *</label>
-                        <input type="text" id="txtDescripcion" name="txtDescripcion" class="form-control" value="{{ $pedido->descripcion }}" required>
+                        <textarea name="txtDescripcion" id="txtDescripcion" class="form-control" value="" required>{{ $pedido->descripcion }}</textarea>
                   </div>
             </div>
             <div class="row">
@@ -64,7 +64,11 @@ if (isset($msg)) {
                         <select name="lstSucursal" id="lstSucursal" class="form-control selectpicker">
                               <option value="" disabled selected>Seleccionar</option>
                               @foreach($aSucursales as $sucursal)
-                                    <option value="{{ $sucursal->idsucursal }}">{{ $sucursal->direccion }}</option>
+                                    @if($sucursal->idsucursal == $pedido->fk_idsucursal)
+                                          <option selected value="{{ $sucursal->idsucursal }}">{{ $sucursal->direccion }}</option>
+                                    @else
+                                          <option value="{{ $sucursal->idsucursal }}">{{ $sucursal->direccion }}</option>
+                                    @endif
                               @endforeach
                         </select>
                   </div>
@@ -77,7 +81,11 @@ if (isset($msg)) {
                         <select name="lstCliente" id="lstCliente" class="form-control selectpicker">
                               <option value="" disabled selected>Seleccionar</option>
                               @foreach($aClientes as $cliente)
-                                    <option value="{{ $cliente->idcliente }}">{{ $cliente->nombre }}</option>
+                                    @if($cliente->idcliente == $pedido->fk_idcliente)
+                                          <option selected value="{{ $cliente->idcliente }}">{{ $cliente->nombre }}</option>
+                                    @else
+                                          <option value="{{ $cliente->idcliente }}">{{ $cliente->nombre }}</option>
+                                    @endif
                               @endforeach
                         </select>
                   </div>
@@ -88,7 +96,11 @@ if (isset($msg)) {
                         <select name="lstEstado" id="lstEstado" class="form-control selectpicker">
                               <option value="" disabled selected>Seleccionar</option>
                               @foreach($aEstados as $estado)
-                                    <option value="{{ $estado->idestado }}">{{ $estado->nombre }}</option>
+                                    @if($estado->idestado == $pedido->fk_idestado)
+                                          <option selected value="{{ $estado->idestado }}">{{ $estado->nombre }}</option>
+                                    @else 
+                                          <option value="{{ $estado->idestado }}">{{ $estado->nombre }}</option>
+                                    @endif
                               @endforeach
                         </select>
                   </div>

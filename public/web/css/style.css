@@ -514,7 +514,7 @@ a:focus {
 }
 
 .food_section .box .img-box {
-  background: #f1f2f3;
+  background: #ffffff;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -526,6 +526,8 @@ a:focus {
           align-items: center;
   height: 215px;
   border-radius: 0 0 0 45px;
+  border-style: solid;
+  border-color: #ffbe33;
   margin: -1px;
   padding: 25px;
 }

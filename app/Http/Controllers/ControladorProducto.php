@@ -51,15 +51,34 @@ class ControladorProducto extends Controller
 
       public function guardar(Request $request) {
             try {
-                $titulo = "Modificar producto";
+                $titulo = "Guardar producto";
                 $entidad = new Producto();
                 $entidad->cargarDesdeRequest($request);
 
-                if ($entidad->nombre == "" || $entidad->cantidad == "" || $entidad->precio == "" || $entidad->imagen == "" || $entidad->fk_idcategoria == "") {
+                if ($_FILES["archivo"]["error"] === UPLOAD_ERR_OK) { //Se adjunta imagen
+                    $extension = pathinfo($_FILES["archivo"]["name"], PATHINFO_EXTENSION);
+                     $nombre = date("Ymdhmsi") . ".$extension";
+                     $archivo = $_FILES["archivo"]["tmp_name"];
+                     move_uploaded_file($archivo, env('APP_PATH') . "/public/files/$nombre"); //Guarda el archivo
+                     $entidad->imagen = $nombre;
+                 }      
+
+                if ($entidad->nombre == "" || $entidad->cantidad == "" || $entidad->precio == "" || $entidad->imagen == "" || $entidad->fk_idcategoria == "" || $entidad->descripcion == "") {
                     $msg["ESTADO"] = MSG_ERROR;
                     $msg["MSG"] = "Complete todos los datos";
                 } else {
                     if ($_POST["id"] > 0) {
+
+                        $productAnt = new Producto();
+                        $productAnt->obtenerPorId($entidad->idproducto);
+
+                        if($_FILES["archivo"]["error"] === UPLOAD_ERR_OK){
+                            //Eliminar imagen anterior
+                            @unlink(env('APP_PATH') . "/public/files/$productAnt->imagen");                          
+                        } else {
+                            $entidad->imagen = $productAnt->imagen;
+                        }
+
 
                         $entidad->guardar();
     
@@ -110,8 +129,9 @@ class ControladorProducto extends Controller
             $row[] = '<a href="/admin/producto/' . $aProductos[$i]->idproducto . '">' . $aProductos[$i]->nombre . '</a>';
             $row[] = $aProductos[$i]->cantidad;
             $row[] = $aProductos[$i]->precio;
-            $row[] = $aProductos[$i]->imagen;
+            $row[] = "<img src='/files/" . $aProductos[$i]->imagen . "' class='img-thumbnail'>";
             $row[] = $aProductos[$i]->categoria;
+            $row[] = $aProductos[$i]->descripcion;
             $cont++;
             $data[] = $row;
         }

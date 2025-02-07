@@ -35,7 +35,7 @@ if (isset($msg)) {
 ?>
 <div id = "msg"></div>
 <div class="panel-body">
-      <form id="form1" method="POST">
+      <form id="form1" method="POST" enctype="multipart/form-data">
             <div class="row">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
@@ -71,9 +71,19 @@ if (isset($msg)) {
                         <select name="lstCategoria" id="lstCategoria" class="form-control selectpicker">
                               <option value="" disabled selected>Seleccionar</option>
                               @foreach($aCategorias as $categoria)
-                                    <option value="{{ $categoria->idcategoria }}">{{ $categoria->nombre }}</option>
+                                    @if($categoria->idcategoria == $producto->fk_idcategoria)
+                                          <option selected value="{{ $categoria->idcategoria }}">{{ $categoria->nombre }}</option>
+                                    @else 
+                                          <option value="{{ $categoria->idcategoria }}">{{ $categoria->nombre }}</option>
+                                    @endif
                               @endforeach
                         </select>
+                  </div>
+                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+                  <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
+                  <div class="form-group col-6">
+                        <label>Descripción: *</label>
+                        <textarea name="txtDescripcion" id="txtDescripcion" class="form-control" value="" required>{{ $producto->descripcion }}</textarea>
                   </div>
             </div>
       </form>

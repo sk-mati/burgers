@@ -29,6 +29,7 @@ if (isset($msg)) {
             <th>Precio</th>
             <th>Imagen</th>
             <th>Categoría</th>
+            <th>Descripción</th>
         </tr>
     </thead>
 </table> 

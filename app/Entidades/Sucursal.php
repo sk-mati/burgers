@@ -12,7 +12,7 @@ class Sucursal extends Model
     public $timestamps = false;
 
     protected $fillable = [ 
-        'idsucursal', 'telefono', 'direccion', 'linkmapa',
+        'idsucursal', 'telefono', 'direccion', 'linkmapa', 'nombre'
     ];
 
     protected $hidden = [
@@ -24,6 +24,7 @@ class Sucursal extends Model
         $this->telefono = $request->input('txtTelefono');
         $this->direccion = $request->input('txtDireccion');
         $this->linkmapa = $request->input('txtLink');
+        $this->nombre = $request->input('txtNombre');
     }
 
     public function obtenerTodos()
@@ -32,7 +33,8 @@ class Sucursal extends Model
                   idsucursal,
                   telefono,
                   direccion,
-                  linkmapa
+                  linkmapa,
+                  nombre
                 FROM sucursales";
         $lstRetorno = DB::select($sql);
         return $lstRetorno;
@@ -44,7 +46,8 @@ class Sucursal extends Model
                     idsucursal,
                     telefono,
                     direccion,
-                    linkmapa
+                    linkmapa,
+                    nombre
                 FROM sucursales WHERE idsucursal = $idSucursal";
         $lstRetorno = DB::select($sql);
 
@@ -53,6 +56,7 @@ class Sucursal extends Model
             $this->telefono = $lstRetorno[0]->telefono;
             $this->direccion = $lstRetorno[0]->direccion;
             $this->linkmapa = $lstRetorno[0]->linkmapa;
+            $this->nombre = $lstRetorno[0]->nombre;
             return $this;
         }
         return null;
@@ -62,7 +66,8 @@ class Sucursal extends Model
         $sql = "UPDATE sucursales SET
             telefono='$this->telefono',
             direccion='$this->direccion',
-            linkmapa='$this->linkmapa'
+            linkmapa='$this->linkmapa',
+            nombre='$this->nombre'
             WHERE idsucursal=?";
         $affected = DB::update($sql, [$this->idsucursal]);
     }
@@ -78,12 +83,14 @@ class Sucursal extends Model
         $sql = "INSERT INTO sucursales (
                   telefono,
                   direccion,
-                  linkmapa
-            ) VALUES (?, ?, ?);";
+                  linkmapa,
+                  nombre
+            ) VALUES (?, ?, ?, ?);";
         $result = DB::insert($sql, [
             $this->telefono,
             $this->direccion,
-            $this->linkmapa
+            $this->linkmapa,
+            $this->nombre
         ]);
         return $this->idsucursal = DB::getPdo()->lastInsertId();
     }
@@ -95,12 +102,14 @@ class Sucursal extends Model
             0 => 'telefono',
             1 => 'direccion',
             2 => 'linkmapa',
+            3 => 'nombre'
         );
         $sql = "SELECT DISTINCT
                         idsucursal,
                         telefono,
                         direccion,
-                        linkmapa
+                        linkmapa,
+                        nombre
                     FROM sucursales
                     WHERE 1=1
                 ";
@@ -110,6 +119,7 @@ class Sucursal extends Model
             $sql .= " AND ( telefono LIKE '%" . $request['search']['value'] . "%' ";
             $sql .= " OR direccion LIKE '%" . $request['search']['value'] . "%' ";
             $sql .= " OR linkmapa LIKE '%" . $request['search']['value'] . "%' )";
+            $sql .= " OR nombre LIKE '%" . $request['search']['value'] . "%' )";
 
         }
         $sql .= " ORDER BY " . $columns[$request['order'][0]['column']] . "   " . $request['order'][0]['dir'];

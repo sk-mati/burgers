@@ -12,7 +12,7 @@ class Producto extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'idproducto', 'nombre', 'cantidad', 'precio', 'imagen', 'fk_idcategoria'
+        'idproducto', 'nombre', 'cantidad', 'precio', 'imagen', 'fk_idcategoria', 'descripcion'
     ];
 
     protected $hidden = [
@@ -26,6 +26,7 @@ class Producto extends Model
         $this->precio = $request->input('txtPrecio');
         $this->imagen = $request->input('archivo');
         $this->fk_idcategoria = $request->input('lstCategoria');
+        $this->descripcion = $request->input('txtDescripcion');
     }
 
     public function obtenerTodos()
@@ -36,7 +37,8 @@ class Producto extends Model
                   cantidad,
                   precio,
                   imagen,
-                  fk_idcategoria
+                  fk_idcategoria,
+                  descripcion
                 FROM productos ORDER BY nombre ASC";
         $lstRetorno = DB::select($sql);
         return $lstRetorno;
@@ -50,7 +52,8 @@ class Producto extends Model
                   cantidad,
                   precio,
                   imagen,
-                  fk_idcategoria
+                  fk_idcategoria,
+                  descripcion
                 FROM productos WHERE idproducto = $idProducto";
         $lstRetorno = DB::select($sql);
 
@@ -61,6 +64,7 @@ class Producto extends Model
             $this->precio = $lstRetorno[0]->precio;
             $this->imagen = $lstRetorno[0]->imagen;
             $this->fk_idcategoria = $lstRetorno[0]->fk_idcategoria;
+            $this->descripcion = $lstRetorno[0]->descripcion;
             return $this;
         }
         return null;
@@ -72,7 +76,8 @@ class Producto extends Model
             cantidad=$this->cantidad,
             precio=$this->precio,
             imagen='$this->imagen',
-            fk_idcategoria=$this->fk_idcategoria
+            fk_idcategoria=$this->fk_idcategoria,
+            descripcion='$this->descripcion'
             WHERE idproducto=?"; 
         $affected = DB::update($sql, [$this->idproducto]);
     }
@@ -90,14 +95,16 @@ class Producto extends Model
                     cantidad,
                     precio,
                     imagen,
-                    fk_idcategoria
-            ) VALUES (?, ?, ?, ?, ?);";
+                    fk_idcategoria,
+                    descripcion
+            ) VALUES (?, ?, ?, ?, ?, ?);";
         $result = DB::insert($sql, [
             $this->nombre,
             $this->cantidad,
             $this->precio,
             $this->imagen,
-            $this->fk_idcategoria
+            $this->fk_idcategoria,
+            $this->descripcion
         ]);
         return $this->idproducto = DB::getPdo()->lastInsertId();
     }
@@ -111,6 +118,7 @@ class Producto extends Model
             2 => 'A.precio',
             3 => 'A.imagen',
             4 => 'B.nombre',
+            5 => 'A.descripcion'
         );
         $sql = "SELECT DISTINCT
                         A.idproducto,
@@ -119,7 +127,8 @@ class Producto extends Model
                         A.precio,
                         A.imagen,
                         A.fk_idcategoria,
-                        B.nombre AS categoria
+                        B.nombre AS categoria,
+                        A.descripcion
                     FROM productos A
                     INNER JOIN categorias B ON A.fk_idcategoria = B.idcategoria
                     WHERE 1=1
@@ -132,6 +141,7 @@ class Producto extends Model
             $sql .= " OR A.precio LIKE '%" . $request['search']['value'] . "%' ";
             $sql .= " OR A.imagen LIKE '%" . $request['search']['value'] . "%' ";
             $sql .= " OR A.fk_idcategoria LIKE '%" . $request['search']['value'] . "%' )";
+            $sql .= " OR A.descripcion LIKE '%" . $request['search']['value'] . "%' )";
 
         }
         $sql .= " ORDER BY " . $columns[$request['order'][0]['column']] . "   " . $request['order'][0]['dir'];
