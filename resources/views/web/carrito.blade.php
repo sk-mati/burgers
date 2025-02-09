@@ -14,7 +14,7 @@
                                     <table class="table table-hover">
                                           <thead>
                                                 <tr>
-                                                      <th></th>
+                                                      <th>Producto</th>
                                                       <th></th>
                                                       <th></th>
                                                       <th>Precio</th>
@@ -24,9 +24,12 @@
                                           </thead>
                                           <tbody>
                                                 <tr>
-                                                      <form action="" method="POST">
-                                                            
-                                                      </form>
+                                                @foreach($aCarritos AS $carrito)
+                                                      <td>{{ $carrito->fk_idproducto }}</td>
+                                                      <td></td>
+                                                      <td></td>
+                                                      <td>{{ $carrito->fk_idcliente }}</td>
+                                                @endforeach
                                                 </tr>
                                           </tbody>
                                     </table>
