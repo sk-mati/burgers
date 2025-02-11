@@ -15,9 +15,7 @@ class Carrito extends Model
         'idcarrito', 'fk_idcliente', 'cantidad'
     ];
 
-    protected $hidden = [
-
-    ];
+    protected $hidden = [];
 
     public function obtenerTodos()
     {
@@ -85,7 +83,7 @@ class Carrito extends Model
                 A.idcarrito,
                 A.fk_idcliente,
                 A.fk_idproducto,
-                A.cantidad
+                A.cantidad,
                 B.nombre AS producto,
                 B.precio AS precio,
                 B.imagen AS imagen
