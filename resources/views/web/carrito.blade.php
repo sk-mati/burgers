@@ -7,6 +7,15 @@
                         Mi carrito
                   </h2>
             </div>
+            @if(isset($msg))
+            <div class="row">
+              <div class="col-12 text-center">
+                <div class="alert alert-{{ $msg['err'] }}" role="alert">
+                  {{ $msg["mensaje"] }}
+                </div>
+              </div>
+            </div>
+            @endif
             <div class="row">
                   @if($aCarritos)
                   <div class="col-md-9">
@@ -20,11 +29,19 @@
                                                       <th></th>
                                                       <th>Precio</th>
                                                       <th style="width:15px;">Cantidad</th>
+                                                      <th>Acciones</th>
                                                       <th>Subtotal</th>
                                                 </tr>
                                           </thead>
                                           <tbody>
+                                                <?php
+                                                $total = 0;
+                                                ?>
                                                 @foreach($aCarritos AS $carrito)
+                                                <?php
+                                                $subtotal = $carrito->precio * $carrito->cantidad;
+                                                $total += $subtotal;
+                                                ?>
                                                 <tr>
                                                       <form action="" method="POST">
                                                             <td style="width: 10px; height: 10px;">
@@ -32,12 +49,13 @@
                                                             </td>
                                                             <td>{{ $carrito->producto }}</td>
                                                             <td style="width: 0px;">
-                                                                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                                                                  <input type="hidden" id="txtCarrito" name="txtCarrito" class="form-control" min="1" value="{{ $carrito->idcarrito }}">
+                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
+                                                                <input type="hidden" id="txtCarrito" name="txtCarrito" class="form-control" min="1" value="{{ $carrito->idcarrito }}">
                                                             </td>
                                                             <td>{{ $carrito->precio}}</td>
                                                             <td style="width: 10px;">
-                                                                  <input type="number" id="txtCantidad" name="txtCantidad" class="form-control" min="1" value="{{ $carrito->cantidad}}">
+                                                                <input type="hidden" id="txtProducto" name="txtProducto" class="form-control" value="{{ $carrito->fk_idproducto}}">
+                                                                <input type="number" id="txtCantidad" name="txtCantidad" class="form-control" min="1" value="{{ $carrito->cantidad}}">
                                                             </td>
                                                             <td>
                                                                 <div class="btn-group">
@@ -54,6 +72,7 @@
                                                                     </button>
                                                                 </div>
                                                             </td>
+                                                            <td>$ {{ number_format($subtotal, 2, ",", ".") }}</td>
                                                       </form>
                                                 </tr>
                                                 @endforeach
@@ -72,7 +91,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>TOTAL:</th>
+                                        <th>TOTAL: $ {{ number_format($total, 2, ",", ".") }}</th>
                                     </tr>
                                 </thead>
                                 <form action="" method="POST">
@@ -94,8 +113,8 @@
                                                 <label for="">Método de pago: *</label>
                                                 <select name="lstPago" id="lstPago" class="form-select selectpicker" required>
                                                     <option value="" disabled selected>Seleccionar</option>
-                                                    <option value="mercadoPago">Mercado Pago</option>
-                                                    <option value="efectivo">Efectivo</option>
+                                                    <option value="Mercadopago">Mercado Pago</option>
+                                                    <option value="Efectivo">Efectivo</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -113,6 +132,7 @@
                         <br>
                         <h4>No hay productos seleccionados.</h4>
                         <br>
+                        <a href="/takeaway" class="btn btn-primary">Continuar pedido</a>
                   </div>
                   @endif
             </div>

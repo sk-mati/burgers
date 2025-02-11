@@ -8,16 +8,16 @@
           Nuestro Menú
         </h2>
         <br>
-        @if(isset($msg))
+      </div>
+      @if(isset($msg))
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-12 text-center">
             <div class="alert alert-{{ $msg['ESTADO'] }}" role="alert">
               {{ $msg["MSG"] }}
             </div>
           </div>
         </div>
-        @endif
-      </div>
+      @endif
 
       <ul class="filters_menu">
         <li class="active" data-filter="*">Todos</li>
@@ -73,8 +73,8 @@
     </div>
   </div>
     <div class="btn-box">
-        <a href="">
-          
+        <a href="/carrito">
+          Ir al carrito
         </a>
       </div>
   </section>
