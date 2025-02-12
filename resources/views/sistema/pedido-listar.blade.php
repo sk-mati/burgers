@@ -25,7 +25,6 @@ if (isset($msg)) {
     <thead>
         <tr>
             <th>Fecha</th>
-            <th>Descripción</th>
             <th>Total</th>
             <th>Sucursal</th>
             <th>Cliente</th>

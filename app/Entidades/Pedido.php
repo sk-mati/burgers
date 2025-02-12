@@ -12,7 +12,7 @@ class Pedido extends Model
     public $timestamps = false;
 
     protected $fillable = [ 
-        'idpedido', 'fecha', 'descripcion', 'total', 'fk_idsucursal', 'fk_idcliente', 'fk_idestado', 'pago'
+        'idpedido', 'fecha', 'total', 'fk_idsucursal', 'fk_idcliente', 'fk_idestado', 'pago'
     ];
 
     protected $hidden = [
@@ -22,7 +22,6 @@ class Pedido extends Model
     public function cargarDesdeRequest($request) {
         $this->idpedido = $request->input('id') != "0" ? $request->input('id') : $this->idpedido;
         $this->fecha = $request->input('txtFecha');
-        $this->descripcion = $request->input('txtDescripcion');
         $this->total = $request->input('txtTotal');
         $this->fk_idsucursal = $request->input('lstSucursal');
         $this->fk_idcliente = $request->input('lstCliente');
@@ -35,7 +34,6 @@ class Pedido extends Model
         $sql = "SELECT 
                   idpedido,
                   fecha,
-                  descripcion,
                   total,
                   fk_idsucursal,
                   fk_idcliente,
@@ -51,7 +49,6 @@ class Pedido extends Model
         $sql = "SELECT
                     idpedido,
                     fecha,
-                    descripcion,
                     total,
                     fk_idsucursal,
                     fk_idcliente,
@@ -63,7 +60,6 @@ class Pedido extends Model
         if (count($lstRetorno) > 0) {
             $this->idpedido = $lstRetorno[0]->idpedido;
             $this->fecha = $lstRetorno[0]->fecha;
-            $this->descripcion = $lstRetorno[0]->descripcion;
             $this->total = $lstRetorno[0]->total;
             $this->fk_idsucursal = $lstRetorno[0]->fk_idsucursal;
             $this->fk_idcliente = $lstRetorno[0]->fk_idcliente;
@@ -76,7 +72,6 @@ class Pedido extends Model
     public function guardar() {
         $sql = "UPDATE pedidos SET
             fecha='$this->fecha',
-            descripcion='$this->descripcion',
             total=$this->total,
             fk_idsucursal=$this->fk_idsucursal,
             fk_idcliente=$this->fk_idcliente,
@@ -96,16 +91,14 @@ class Pedido extends Model
     {
         $sql = "INSERT INTO pedidos (
                     fecha,
-                    descripcion,
                     total,
                     fk_idsucursal,
                     fk_idcliente,
                     fk_idestado,
                     pago
-            ) VALUES (?, ?, ?, ?, ?, ?, ?);";
+            ) VALUES (?, ?, ?, ?, ?, ?);";
         $result = DB::insert($sql, [
             $this->fecha,
-            $this->descripcion,
             $this->total,
             $this->fk_idsucursal,
             $this->fk_idcliente,
@@ -120,23 +113,21 @@ class Pedido extends Model
         $request = $_REQUEST;
         $columns = array(
             0 => 'A.fecha',
-            1 => 'A.descripcion',
-            2 => 'A.total',
-            3 => 'B.direccion',
-            4 => 'C.nombre',
-            5 => 'D.nombre',
-            6 => 'A.pago'
+            1 => 'A.total',
+            2 => 'B.direccion',
+            3 => 'C.nombre',
+            4 => 'D.nombre',
+            5 => 'A.pago'
         );
         $sql = "SELECT DISTINCT
                         A.idpedido,
                         A.fecha,
-                        A.descripcion,
                         A.total,
                         A.fk_idsucursal,
                         A.fk_idcliente,
                         A.fk_idestado,
                         A.pago,
-						B.direccion AS sucursal,
+						B.nombre AS sucursal,
 						C.nombre AS cliente,
 						D.nombre AS estado                      
                 FROM pedidos A
@@ -148,7 +139,6 @@ class Pedido extends Model
         //Realiza el filtrado
         if (!empty($request['search']['value'])) {
             $sql .= " AND ( A.fecha LIKE '%" . $request['search']['value'] . "%' ";
-            $sql .= " OR A.descripcion LIKE '%" . $request['search']['value'] . "%' ";
             $sql .= " OR A.correo LIKE '%" . $request['search']['value'] . "%' ";
             $sql .= " OR A.total LIKE '%" . $request['search']['value'] . "%' ";
             $sql .= " OR A.fk_idsucursal LIKE '%" . $request['search']['value'] . "%' ";
@@ -167,7 +157,6 @@ class Pedido extends Model
         $sql = "SELECT
                     idpedido,
                     fecha,
-                    descripcion,
                     total,
                     fk_idsucursal,
                     fk_idcliente,

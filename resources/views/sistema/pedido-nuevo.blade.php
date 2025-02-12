@@ -46,17 +46,11 @@ if (isset($msg)) {
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
-                        <label>Descripción:</label>
-                        <textarea name="txtDescripcion" id="txtDescripcion" class="form-control" value="">{{ $pedido->descripcion }}</textarea>
-                  </div>
-            </div>
-            <div class="row">
-                  <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
-                  <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
-                  <div class="form-group col-6">
                         <label>Total: *</label>
                         <input type="text" id="txtTotal" name="txtTotal" class="form-control" value="{{ $pedido->total }}" required>
                   </div>
+            </div>
+            <div class="row">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
@@ -65,15 +59,13 @@ if (isset($msg)) {
                               <option value="" disabled selected>Seleccionar</option>
                               @foreach($aSucursales as $sucursal)
                                     @if($sucursal->idsucursal == $pedido->fk_idsucursal)
-                                          <option selected value="{{ $sucursal->idsucursal }}">{{ $sucursal->direccion }}</option>
+                                          <option selected value="{{ $sucursal->idsucursal }}">{{ $sucursal->nombre }}</option>
                                     @else
-                                          <option value="{{ $sucursal->idsucursal }}">{{ $sucursal->direccion }}</option>
+                                          <option value="{{ $sucursal->idsucursal }}">{{ $sucursal->nombre }}</option>
                                     @endif
                               @endforeach
                         </select>
                   </div>
-            </div>
-            <div class="row">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
@@ -89,6 +81,8 @@ if (isset($msg)) {
                               @endforeach
                         </select>
                   </div>
+            </div>
+            <div class="row">
                   <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                   <input type="hidden" id="id" name="id" class="form-control" value="{{$globalId}}" required>
                   <div class="form-group col-6">
@@ -102,6 +96,14 @@ if (isset($msg)) {
                                           <option value="{{ $estado->idestado }}">{{ $estado->nombre }}</option>
                                     @endif
                               @endforeach
+                        </select>
+                  </div>
+                  <div class="form-group col-6">
+                        <label>Medio de pago: *</label>
+                        <select name="lstPago" id="lstPago" class="form-control selectpicker">
+                              <option value="" disabled selected>Seleccionar</option>
+                              <option <?php echo $pedido->pago == "Mercadopago"? "selected" : ""; ?> value="Mercadopago">Mercado Pago</option>
+                              <option <?php echo $pedido->pago == "Efectivo"? "selected" : ""; ?> value="Efectivo">Efectivo</option>
                         </select>
                   </div>
             </div>

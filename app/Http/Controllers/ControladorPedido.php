@@ -60,7 +60,7 @@ class ControladorPedido extends Controller
                 $entidad = new Pedido();
                 $entidad->cargarDesdeRequest($request);
     
-                if ($entidad->fecha == "" || $entidad->descripcion == "" || $entidad->total == "" || $entidad->fk_idsucursal == "" || $entidad->fk_idcliente == "" || $entidad->fk_idestado == "") {
+                if ($entidad->fecha == "" || $entidad->total == "" || $entidad->fk_idsucursal == "" || $entidad->fk_idcliente == "" || $entidad->fk_idestado == "") {
                     $msg["ESTADO"] = MSG_ERROR;
                     $msg["MSG"] = "Complete todos los datos";
                 } else {
@@ -117,7 +117,6 @@ class ControladorPedido extends Controller
         for ($i = $inicio; $i < count($aPedidos) && $cont < $registros_por_pagina; $i++) {
             $row = array();
             $row[] = '<a href="/admin/pedido/' . $aPedidos[$i]->idpedido . '">' . date_format(date_create($aPedidos[$i]->fecha), 'd/m/Y') . '</a>';
-            $row[] = $aPedidos[$i]->descripcion;
             $row[] = number_format($aPedidos[$i]->total, 2, ",", ".");
             $row[] = $aPedidos[$i]->sucursal;
             $row[] = $aPedidos[$i]->cliente;
