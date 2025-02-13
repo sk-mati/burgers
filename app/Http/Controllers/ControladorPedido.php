@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Entidades\Pedido;
+use App\Entidades\Pedido_producto;
 use App\Entidades\Sucursal;
 use App\Entidades\Cliente;
 use App\Entidades\Estado;
@@ -151,7 +152,11 @@ class ControladorPedido extends Controller
                     $aClientes = $cliente->obtenerTodos();
                     $estado = new Estado();
                     $aEstados = $estado->obtenerTodos();
-                    return view("sistema.pedido-nuevo", compact("titulo", "pedido", "aSucursales", "aClientes", "aEstados"));
+
+                    $entidadPedidosProductos = new Pedido_Producto();
+                    $aPedidosProductos = $entidadPedidosProductos->obtenerPorPedido($idPedido);
+
+                    return view("sistema.pedido-nuevo", compact("titulo", "pedido", "aSucursales", "aClientes", "aEstados", "aPedidosProductos"));
                 }
             } else {
                 return redirect('admin/login');

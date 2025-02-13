@@ -35,6 +35,10 @@
           </div>
         </div>
       </div>
+      <div>
+        <a href="/cambiar-clave">Modificar clave de ingreso</a>
+      </div>
+      <br>
       <div class="heading_container">
         <h2>
           Pedidos activos
@@ -43,10 +47,26 @@
       <div class="row">
         <div class="col 12">
             <table class="table table-hover">
-                <tr>
+                <thead>
+                  <tr>
                     <th>Sucursal</th>
+                    <th>Pedido</th>
                     <th>Estado</th>
-                </tr>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                @foreach($aPedidos AS $pedido)
+                <tbody>
+                  <tr>
+                    <td>{{ $pedido->sucursal }}</td>
+                    <td>{{ $pedido->idpedido }}</td>
+                    <td>{{ $pedido->estado }}</td>
+                    <td>{{ date_format(date_create($pedido->fecha), 'd/m/Y') }}</td>
+                    <td>{{ number_format($pedido->total, 2, ",", ".") }}</td>
+                  </tr>
+                </tbody>
+                @endforeach
             </table>
         </div>
       </div>

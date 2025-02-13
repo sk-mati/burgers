@@ -13,17 +13,18 @@
         <div class="detail-box">
           <div class="heading_container">
             <h2>
-              We Are Feane
+              Sobre nuestra empresa
             </h2>
+            <br>
+            <h5>
+              Somos Burguers SRL, dedicados a la gastronomía de excelencia
+            </h5>
           </div>
           <p>
-            There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration
-            in some form, by injected humour, or randomised words which don't look even slightly believable. If you
-            are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in
-            the middle of text. All
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Soluta iste sapiente officiis cumque voluptate exercitationem fugit, illo ipsum esse rem enim facere ad ipsa. Amet aspernatur odio error architecto veniam?
           </p>
-          <a href="">
-            Read More
+          <a href="/takeaway">
+            Trabajá con nosotros
           </a>
         </div>
       </div>

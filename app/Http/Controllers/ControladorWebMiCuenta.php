@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 
 use Session;
 
-use Illuminate\Support\Facades\Redis;
-
 class ControladorWebMiCuenta extends Controller
 {
     public function index()
@@ -20,10 +18,13 @@ class ControladorWebMiCuenta extends Controller
         $cliente = new Cliente();
         $cliente->obtenerPorId($idCliente);
 
-        $sucursal = new Sucursal;
+        $sucursal = new Sucursal();
         $aSucursales = $sucursal->obtenerTodos();
 
-        return view("web.mi-cuenta", compact("cliente", "aSucursales"));
+        $pedido = new Pedido();
+        $aPedidos = $pedido->obtenerPedidosPorCliente($idCliente);
+
+        return view("web.mi-cuenta", compact("cliente", "aSucursales", "aPedidos"));
         } else {
             return redirect("/login");
         }
@@ -37,6 +38,5 @@ class ControladorWebMiCuenta extends Controller
         $cliente->apellido = $request->input("txtApellido");
         $cliente->celular = $request->input("txtCelular");
         $cliente->correo = $request->input("txtCorreo");
-
     }
 }

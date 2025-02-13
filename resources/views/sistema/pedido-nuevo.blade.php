@@ -107,7 +107,31 @@ if (isset($msg)) {
                         </select>
                   </div>
             </div>
+            @if($pedido->idpedido > 0)
+            <div class="row">
+                  <div class="col-12">
+                        <label>Listado de productos</label>
+                  </div>
+                  <div class="col-12">
+                        <table class="table table-hover border">
+                              <tr>
+                                    <th>Imagen</th>
+                                    <th>Producto</th>
+                                    <th>Cantidad</th>
+                              </tr>
+                              @foreach ($aPedidosProductos AS $producto)
+                              <tr>
+                                    <td><img src="/files/{{ $producto->imagen }}" alt="" class="img-thumbnail" style="width: 50px;"></td>
+                                    <td>{{ $producto->nombre }}</td>
+                                    <td>{{ $producto->cantidad }}</td>
+                              </tr>
+                              @endforeach
+                        </table>
+                  </div>
+            </div>
+            @endif
       </form>
+</div>
       <script>
             $("#form1").validate();
 

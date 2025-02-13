@@ -69,6 +69,26 @@ class Pedido extends Model
         return null;
     }
 
+    public function obtenerPedidosPorCliente($idCliente) 
+    {
+        $sql = "SELECT 
+                  A.idpedido,
+                  A.fecha,
+                  A.total,
+                  A.fk_idsucursal,
+                  A.fk_idcliente,
+                  A.fk_idestado,
+                  A.pago,
+                  B.nombre AS sucursal,
+                  C.nombre AS estado
+                FROM pedidos A
+                INNER JOIN sucursales B ON A.fk_idsucursal = B.idsucursal
+                INNER JOIN estados C ON A.fk_idestado = C.idestado
+                WHERE A.fk_idcliente = '$idCliente' AND A.fk_idestado <> 3";
+        $lstRetorno = DB::select($sql); 
+        return $lstRetorno; 
+    }
+
     public function guardar() {
         $sql = "UPDATE pedidos SET
             fecha='$this->fecha',
@@ -145,8 +165,8 @@ class Pedido extends Model
             $sql .= " OR A.fk_idcliente LIKE '%" . $request['search']['value'] . "%' ";
             $sql .= " OR A.fk_idestado LIKE '%" . $request['search']['value'] . "%' )";
             $sql .= " OR A.pago LIKE '%" . $request['search']['value'] . "%' )";
+            $sql .= " ORDER BY " . $columns[$request['order'][0]['column']] . "   " . $request['order'][0]['dir'];
         }
-        $sql .= " ORDER BY " . $columns[$request['order'][0]['column']] . "   " . $request['order'][0]['dir'];
 
         $lstRetorno = DB::select($sql);
 
