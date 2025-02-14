@@ -26,6 +26,7 @@ class ControladorWebRegistrarse extends Controller
         $entidad->correo = $request->input("txtCorreo");
         $entidad->celular = $request->input("txtCelular");
         $entidad->clave = password_hash($request->input("txtClave"), PASSWORD_DEFAULT);
+        $entidad->insertar();
 
         $sucursal = new Sucursal;
         $aSucursales = $sucursal->obtenerTodos();
@@ -33,10 +34,11 @@ class ControladorWebRegistrarse extends Controller
         if ($entidad->nombre == "" || $entidad->apellido == "" || $entidad->correo == "" || $entidad->celular == "" || $entidad->clave == "") {
             $msg["ESTADO"] = MSG_ERROR;
             $msg["MSG"] = "Complete todos los datos";
-            return view("web.registrarse", compact('titulo', 'msg', 'aSucursales'));
+            return view("web.registrarse", compact('msg', 'aSucursales'));
         } else {
-            $entidad->insertar();
-            return redirect("/login");
+            $entidad->guardar();
+            $mensaje = "Registro exitoso.";
+            return view("web.login", compact('aSucursales', 'mensaje'));
         }  
     }
 }

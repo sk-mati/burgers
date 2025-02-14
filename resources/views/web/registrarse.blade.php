@@ -7,10 +7,20 @@
           Registrarse
         </h2>
       </div>
+      @if(isset($msg))
+      <div class="row">
+        <div class="col-md-6">
+          <div class="alert alert-{{ $msg['ESTADO'] }}" role="alert">
+            {{ $msg['MSG'] }}
+          </div>
+        </div>
+      </div>
+      @endif
       <div class="row">
         <div class="col-md-6">
           <div class="form_container">
-            <form action="">
+            <form action="" method="POST">
+              <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
               <div>
                 <input type="text" class="form-control" placeholder="Nombre" id="txtNombre" name="txtNombre"/>
               </div>
