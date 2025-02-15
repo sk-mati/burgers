@@ -47,7 +47,7 @@ class ControladorPostulacion extends Controller
 
       public function guardar(Request $request) {
             try {
-                $titulo = "Modificar postulación";
+                $titulo = "Guardar postulación";
                 $entidad = new Postulacion();
                 $entidad->cargarDesdeRequest($request);
     
@@ -105,7 +105,7 @@ class ControladorPostulacion extends Controller
             $row[] = $aPostulaciones[$i]->apellido;
             $row[] = $aPostulaciones[$i]->celular;
             $row[] = $aPostulaciones[$i]->correo;
-            $row[] = $aPostulaciones[$i]->curriculum;
+            $row[] = "<a href= '/files/".$aPostulaciones[$i]->curriculum."'> Descargar </a>";
             $cont++;
             $data[] = $row;
         }

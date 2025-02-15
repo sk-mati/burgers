@@ -31,10 +31,13 @@
                 <input type="email" class="form-control" placeholder="Correo" id="txtCorreo" name="txtCorreo"/>
               </div>
               <div>
+                <input type="text" class="form-control" placeholder="DNI" id="txtDni" name="txtDni"/>
+              </div>
+              <div>
                 <input type="text" class="form-control" placeholder="Celular" id="txtCelular" name="txtCelular"/>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Clave" id="txtClave" name="txtClave"/>
+                <input type="password" class="form-control required" placeholder="Clave" id="txtClave" name="txtClave"/>
               </div>
               <div class="">
                 <button type="submit" class="btn btn-primary">
