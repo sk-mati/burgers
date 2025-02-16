@@ -4,55 +4,41 @@
     <div class="container">
       <div class="heading_container">
         <h2>
-          Book A Table
+          Contactate
         </h2>
       </div>
+      @if(isset($msg))
+      <div class="row">
+        <div class="col-md-6">
+          <div class="alert alert-{{ $msg['ESTADO'] }}" role="alert">
+            {{ $msg['MSG'] }}
+          </div>
+        </div>
+      </div>
+      @endif
       <div class="row">
         <div class="col-md-6">
           <div class="form_container">
-            <form action="">
+            <form action="" method="POST">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
               <div>
-                <input type="text" class="form-control" placeholder="Your Name" />
+                <input type="text" class="form-control" placeholder="Nombre" name="txtNombre" id="txtNombre" required/>
               </div>
               <div>
-                <input type="text" class="form-control" placeholder="Phone Number" />
+                <input type="email" class="form-control" placeholder="Correo" name="txtCorreo" id="txtCorreo" required/>
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Your Email" />
+                <input type="text" class="form-control" placeholder="Celular" name="txtCelular" id="txtCelular" required/>
               </div>
               <div>
-                <select class="form-control nice-select wide">
-                  <option value="" disabled selected>
-                    How many persons?
-                  </option>
-                  <option value="">
-                    2
-                  </option>
-                  <option value="">
-                    3
-                  </option>
-                  <option value="">
-                    4
-                  </option>
-                  <option value="">
-                    5
-                  </option>
-                </select>
-              </div>
-              <div>
-                <input type="date" class="form-control">
+                <textarea class="form-control" name="txtMensaje" id="txtMensaje" placeholder="Mensaje" required></textarea>
               </div>
               <div class="btn_box">
                 <button>
-                  Book Now
+                  Enviar
                 </button>
               </div>
             </form>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="map_container ">
-            <div id="googleMap"></div>
           </div>
         </div>
       </div>

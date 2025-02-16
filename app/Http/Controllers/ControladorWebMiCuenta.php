@@ -33,10 +33,23 @@ class ControladorWebMiCuenta extends Controller
     public function guardar(Request $request)
     {
         $cliente = new Cliente();
-        $cliente->idcliente = Session::get("idCliente");
+        $idCliente = Session::get("idCliente");
+        $cliente->idcliente = $idCliente;
         $cliente->nombre = $request->input("txtNombre");
         $cliente->apellido = $request->input("txtApellido");
-        $cliente->celular = $request->input("txtCelular");
         $cliente->correo = $request->input("txtCorreo");
+        $cliente->dni = $request->input("txtDni");
+        $cliente->celular = $request->input("txtCelular");
+        $cliente->clave = $request->input("txtClave");
+        
+        $cliente->guardar();
+
+        $sucursal = new Sucursal();
+        $aSucursales = $sucursal->obtenerTodos();
+
+        $pedido = new Pedido();
+        $aPedidos = $pedido->obtenerPedidosPorCliente($idCliente);
+
+        return view("web.mi-cuenta", compact("cliente", "aSucursales", "aPedidos"));
     }
 }

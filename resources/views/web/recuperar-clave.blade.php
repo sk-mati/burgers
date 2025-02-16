@@ -4,12 +4,11 @@
     <div class="container">
       <div class="heading_container">
         <h2>
-          Recuperar la clave
+          ¿Olvidaste la clave?
         </h2>
         <p>
-            ¿Olvidaste la clave?<br>
-            Ingresa la dirección de correo electrónico con la que te registraste y
-            te enviaremos las instrucciones para cambiar de clave.
+          Ingresa la dirección de correo electrónico con la que te registraste y
+          te enviaremos las instrucciones para cambiar de clave.
         </p>
       </div>
     <div class="row">

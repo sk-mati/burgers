@@ -20,14 +20,20 @@
                     <input type="text" id="txtApellido" name="txtApellido" class="form-control" placeholder="Apellido" value="{{ $cliente->apellido }}"/>
                   </div>
                   <div class="col-md-6">
+                    <input type="email" id="txtCorreo" name="txtCorreo" class="form-control" placeholder="Correo" value="{{ $cliente->correo }}"/>
+                  </div>
+                  <div class="col-md-6">
+                    <input type="text" id="txtDni" name="txtDni" class="form-control" placeholder="DNI" value="{{ $cliente->dni }}"/>
+                  </div>
+                  <div class="col-md-6">
                     <input type="text" id="txtCelular" name="txtCelular" class="form-control" placeholder="Celular" value="{{ $cliente->celular }}"/>
                   </div>
                   <div class="col-md-6">
-                    <input type="text" id="txtCorreo" name="txtCorreo" class="form-control" placeholder="Correo" value="{{ $cliente->correo }}"/>
+                    <input type="hidden" id="txtClave" name="txtClave" class="form-control" placeholder="Clave" value="{{ $cliente->clave }}"/>
                   </div>
                 </div>
               <div class="btn_box text-center">
-                <button>
+                <button type="submit" name="btnGuardar" id="btnGuardar">
                   Guardar
                 </button>
               </div>

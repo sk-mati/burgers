@@ -31,6 +31,8 @@ class ControladorWebRecuperarClave extends Controller
 
         $cliente = new Cliente();
         $cliente->obtenerPorCorreo($correo);
+        $cliente->clave = password_hash($clave, PASSWORD_DEFAULT);
+        $cliente->guardar();
         if ($cliente->correo =! "") {
 
             $data = "Instrucciones";
