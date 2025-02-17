@@ -65,9 +65,8 @@ class ControladorWebCarrito extends Controller
         $carrito->fk_idcliente = $idCliente;
         $carrito->fk_idproducto = $idProducto;
         $carrito->guardar();
-        $resultado["err"] = EXIT_SUCCESS;
-        $resultado["mensaje"] = "Producto actualizado exitosamente.";
-        return view("web.carrito", compact('resultado', 'aSucursales', 'aCarritos'));
+        $mensaje = "Producto actualizado exitosamente.";
+        return view("web.carrito", compact('mensaje', 'aSucursales', 'aCarritos'));
     }
 
     public function eliminar(Request $request) 
@@ -83,9 +82,8 @@ class ControladorWebCarrito extends Controller
         $carrito = new Carrito();
         $carrito->idcarrito = $idCarrito;
         $carrito->eliminar();
-        $resultado["err"] = EXIT_SUCCESS;
-        $resultado["mensaje"] = "Producto eliminado exitosamente.";
-        return view("web.carrito", compact('resultado', 'aSucursales', 'aCarritos'));
+        $mensaje = "Producto eliminado exitosamente.";
+        return view("web.carrito", compact('mensaje', 'aSucursales', 'aCarritos'));
     }
 
     public function insertarPedido(Request $request)
@@ -129,9 +127,8 @@ class ControladorWebCarrito extends Controller
 
             $carrito->eliminarPorCliente($idCliente);
 
-            $msg["err"] = MSG_SUCCESS;
-            $msg["mensaje"] = "El pedido se ha confirmado correctamente.";
-            return view("web.carrito", compact('msg', 'aSucursales', 'aCarritos'));
+            $mensaje = "El pedido se ha confirmado correctamente.";
+            return view("web.carrito", compact('mensaje', 'aSucursales', 'aCarritos'));
         }
 
     }

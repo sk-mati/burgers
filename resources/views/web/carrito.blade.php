@@ -7,14 +7,14 @@
                         Mi carrito
                   </h2>
             </div>
-            @if(isset($msg))
-            <div class="row">
-              <div class="col-12 text-center">
-                <div class="alert alert-{{ $msg['err'] }}" role="alert">
-                  {{ $msg["mensaje"] }}
+            @if(isset($mensaje))
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                    <div class="alert alert-success" role="alert">
+                      {{ $mensaje }}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
             @endif
             <div class="row">
                   @if($aCarritos)
@@ -133,6 +133,7 @@
                         <h4>No hay productos seleccionados.</h4>
                         <br>
                         <a href="/takeaway" class="btn btn-primary">Continuar pedido</a>
+                        <a href="/mi-cuenta" class="btn btn-primary">Ir a mi cuenta</a>
                   </div>
                   @endif
             </div>
