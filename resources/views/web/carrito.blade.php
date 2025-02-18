@@ -44,12 +44,12 @@
                                                 ?>
                                                 <tr>
                                                       <form action="" method="POST">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                                                             <td style="width: 10px; height: 10px;">
                                                                   <img src="/files/{{ $carrito->imagen }}" alt="" class="img-thumbnail">
                                                             </td>
                                                             <td>{{ $carrito->producto }}</td>
                                                             <td style="width: 0px;">
-                                                                <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                                                                 <input type="hidden" id="txtCarrito" name="txtCarrito" class="form-control" min="1" value="{{ $carrito->idcarrito }}">
                                                             </td>
                                                             <td>{{ $carrito->precio}}</td>
