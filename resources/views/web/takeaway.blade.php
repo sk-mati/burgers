@@ -49,13 +49,13 @@
                 <form action="" method="POST">
                   <div class="row">
                     <div class="col-12">
-                      <div class="row">
-                        <div class="col-6">
+                      <div class="row justify-content-between">
+                        <div class="col-4">
                           <input type="hidden" name="_token" value="{{ csrf_token() }}"></input>
                           <input type="hidden" id="txtProducto" name="txtProducto" class="form-control" style="width: 125px;" min="1" value="{{ $producto->idproducto }}" required>
                           <input type="number" id="txtCantidad" name="txtCantidad" class="form-control" style="width: 125px;" placeholder="Cantidad" min="1" value="">
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                           <button type="submit" class="btn btn-carrito">
                             <a href="" class="cart_link">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">

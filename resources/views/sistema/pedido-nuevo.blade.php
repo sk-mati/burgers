@@ -109,7 +109,7 @@ if (isset($msg)) {
             </div>
             @if($pedido->idpedido > 0)
             <div class="row">
-                  <div class="col-12">
+                  <div class="col-12" id="productos">
                         <label>Listado de productos</label>
                   </div>
                   <div class="col-12">

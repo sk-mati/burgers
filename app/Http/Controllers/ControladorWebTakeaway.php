@@ -25,7 +25,11 @@ class ControladorWebTakeaway extends Controller
         $categoria = new Categoria();
         $aCategorias = $categoria->obtenerTodos();
 
-        return view("web.takeaway", compact('aSucursales', 'aProductos', 'aCategorias'));
+        $idCliente = Session::get("idCliente");
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
+        return view("web.takeaway", compact('aSucursales', 'aProductos', 'aCategorias', 'aCarritos'));
     }
 
     public function insertar(Request $request)
@@ -46,6 +50,9 @@ class ControladorWebTakeaway extends Controller
             $categoria = new Categoria();
             $aCategorias = $categoria->obtenerTodos();
 
+            $carrito = new Carrito();
+            $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
             if(isset($cantidad) && $cantidad > 0) {
 
                 $carrito = new Carrito();
@@ -56,12 +63,12 @@ class ControladorWebTakeaway extends Controller
 
                 $msg["ESTADO"] = MSG_SUCCESS;
                 $msg["MSG"] = "El producto se ha agregado al carrito.";
-                return view('web.takeaway', compact('aSucursales', 'aProductos', 'aCategorias', 'msg'));
+                return view('web.takeaway', compact('aSucursales', 'aProductos', 'aCategorias', 'aCarritos', 'msg'));
             } else {
 
                 $msg["ESTADO"] = MSG_ERROR;
                 $msg["MSG"] = "No agregó ningún producto al carrito.";
-                return view('web.takeaway', compact('aSucursales', 'aProductos', 'aCategorias', 'msg'));
+                return view('web.takeaway', compact('aSucursales', 'aProductos', 'aCategorias', 'aCarritos', 'msg'));
             }
 
         } else {
@@ -75,9 +82,12 @@ class ControladorWebTakeaway extends Controller
             $categoria = new Categoria();
             $aCategorias = $categoria->obtenerTodos();
 
+            $carrito = new Carrito();
+            $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
             $msg["ESTADO"] = MSG_ERROR;
             $msg["MSG"] = "Debe iniciar sesión para realizar un pedido.";
-            return view('web.takeaway', compact('aSucursales', 'aProductos', 'aCategorias', 'msg')); 
+            return view('web.takeaway', compact('aSucursales', 'aProductos', 'aCategorias', 'aCarritos', 'msg')); 
         }
     }
 }

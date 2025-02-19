@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Entidades\Cliente;
 use App\Entidades\Sucursal;
 use App\Entidades\Pedido;
+use App\Entidades\Carrito;
 use Illuminate\Http\Request;
 
 use Session;
@@ -24,7 +25,10 @@ class ControladorWebMiCuenta extends Controller
         $pedido = new Pedido();
         $aPedidos = $pedido->obtenerPedidosPorCliente($idCliente);
 
-        return view("web.mi-cuenta", compact("cliente", "aSucursales", "aPedidos"));
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
+        return view("web.mi-cuenta", compact("cliente", "aSucursales", "aPedidos", "aCarritos"));
         } else {
             return redirect("/login");
         }
@@ -50,6 +54,9 @@ class ControladorWebMiCuenta extends Controller
         $pedido = new Pedido();
         $aPedidos = $pedido->obtenerPedidosPorCliente($idCliente);
 
-        return view("web.mi-cuenta", compact("cliente", "aSucursales", "aPedidos"));
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
+        return view("web.mi-cuenta", compact("cliente", "aSucursales", "aPedidos", "aCarritos"));
     }
 }

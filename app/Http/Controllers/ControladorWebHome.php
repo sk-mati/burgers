@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Entidades\Sucursal;
+use App\Entidades\Carrito;
+
+use Session;
 
 class ControladorWebHome extends Controller
 {
@@ -11,6 +14,10 @@ class ControladorWebHome extends Controller
         $sucursal = new Sucursal;
         $aSucursales = $sucursal->obtenerTodos();
 
-        return view("web.index", compact('sucursal', 'aSucursales'));
+        $idCliente = Session::get("idCliente");
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
+        return view("web.index", compact('sucursal', 'aSucursales', 'aCarritos'));
     }
 }

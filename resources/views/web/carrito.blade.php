@@ -132,8 +132,8 @@
                         <br>
                         <h4>No hay productos seleccionados.</h4>
                         <br>
-                        <a href="/takeaway" class="btn btn-primary">Continuar pedido</a>
-                        <a href="/mi-cuenta" class="btn btn-primary">Ir a mi cuenta</a>
+                        <a href="/takeaway" class="btn btn-dark">Continuar pedido</a>
+                        <a href="/mi-cuenta" class="btn btn-dark">Ir a mi cuenta</a>
                   </div>
                   @endif
             </div>

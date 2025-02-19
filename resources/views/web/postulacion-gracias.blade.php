@@ -7,7 +7,7 @@
             Muchas gracias por tu postulación
         </h2>
         <p>
-            Tu solicitud será revisada en los próximos días
+            Tu solicitud será revisada y pronto estararás recibiendo noticias nuestras 
         </p>
       </div>
     </div>

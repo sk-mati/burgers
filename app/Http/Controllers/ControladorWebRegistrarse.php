@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Entidades\Cliente;
 use App\Entidades\Sucursal;
+use App\Entidades\Carrito;
 use Illuminate\Http\Request;
+
+use Session;
 
 require app_path() . '/start/constants.php';
 
@@ -15,7 +18,11 @@ class ControladorWebRegistrarse extends Controller
         $sucursal = new Sucursal;
         $aSucursales = $sucursal->obtenerTodos();
 
-        return view("web.registrarse", compact("aSucursales"));
+        $idCliente = Session::get("idCliente");
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
+        return view("web.registrarse", compact("aSucursales", "aCarritos"));
     }
 
     public function registrarse(Request $request)
@@ -31,6 +38,10 @@ class ControladorWebRegistrarse extends Controller
         $sucursal = new Sucursal;
         $aSucursales = $sucursal->obtenerTodos();
 
+        $idCliente = Session::get("idCliente");
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
         if ($entidad->nombre == "" || $entidad->apellido == "" || $entidad->correo == "" || $entidad->celular == "" || $entidad->clave == "") {
             $msg["ESTADO"] = MSG_ERROR;
             $msg["MSG"] = "Complete todos los datos.";
@@ -39,6 +50,6 @@ class ControladorWebRegistrarse extends Controller
             $msg["ESTADO"] = MSG_SUCCESS;
             $msg["MSG"] = "Registro exitoso.";
         }  
-        return view("web.registrarse", compact('msg', 'aSucursales'));
+        return view("web.registrarse", compact('msg', 'aSucursales', 'aCarritos'));
     }
 }

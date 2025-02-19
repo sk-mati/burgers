@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entidades\Cliente;
 use App\Entidades\Sucursal;
+use App\Entidades\Carrito;
 
 use Session;
 
@@ -15,7 +16,11 @@ class ControladorWebLogin extends Controller
         $sucursal = new Sucursal;
         $aSucursales = $sucursal->obtenerTodos();
 
-        return view("web.login", compact('aSucursales'));
+        $idCliente = Session::get("idCliente");
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
+        return view("web.login", compact('aSucursales', 'aCarritos'));
     }
 
     public function ingresar(Request $request)

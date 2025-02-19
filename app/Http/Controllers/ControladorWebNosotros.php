@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Entidades\Sucursal;
+use App\Entidades\Carrito;
 use App\Entidades\Postulacion;
 
 use Illuminate\Http\Request;
+
+use Session;
 
 class ControladorWebNosotros extends Controller
 {
@@ -14,7 +17,11 @@ class ControladorWebNosotros extends Controller
         $sucursal = new Sucursal();
         $aSucursales = $sucursal->obtenerTodos();
 
-        return view("web.nosotros", compact('aSucursales'));
+        $idCliente = Session::get("idCliente");
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
+        return view("web.nosotros", compact('aSucursales', 'aCarritos'));
     }
 
     public function insertarPostulacion(Request $request)
@@ -43,6 +50,10 @@ class ControladorWebNosotros extends Controller
         $sucursal = new Sucursal();
         $aSucursales = $sucursal->obtenerTodos();
 
-        return view("web.postulacion-gracias", compact('aSucursales'));
+        $idCliente = Session::get("idCliente");
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
+        return view("web.postulacion-gracias", compact('aSucursales', 'aCarritos'));
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Entidades\Cliente;
 use App\Entidades\Sucursal;
+use App\Entidades\Carrito;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -17,7 +18,11 @@ class ControladorWebRecuperarClave extends Controller
         $sucursal = new Sucursal;
         $aSucursales = $sucursal->obtenerTodos();
 
-        return view("web.recuperar-clave", compact('aSucursales'));
+        $idCliente = Session::get("idCliente");
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
+        return view("web.recuperar-clave", compact('aSucursales', 'aCarritos'));
     }
 
     public function recuperar(Request $request)
@@ -28,6 +33,10 @@ class ControladorWebRecuperarClave extends Controller
 
         $sucursal = new Sucursal;
         $aSucursales = $sucursal->obtenerTodos();
+
+        $idCliente = Session::get("idCliente");
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
 
         $cliente = new Cliente();
         $cliente->obtenerPorCorreo($correo);
@@ -61,15 +70,15 @@ class ControladorWebRecuperarClave extends Controller
                 $mensaje = "La nueva clave es $clave y te la hemos enviado al correo.";
                 
                 
-                return view('web.recuperar-clave', compact('titulo', 'mensaje', 'aSucursales'));
+                return view('web.recuperar-clave', compact('titulo', 'mensaje', 'aSucursales', 'aCarritos'));
             } catch (Exception $e) {
                 $mensaje = "Hubo un error al enviar el correo.";
-                return view('web.recuperar-clave', compact('titulo', 'mensaje', 'aSucursales'));
+                return view('web.recuperar-clave', compact('titulo', 'mensaje', 'aSucursales', 'aCarritos'));
             } 
 
         } else {
             $mensaje = "El email ingresado no existe.";
-            return view('web.recuperar-clave', compact('titulo', 'mensaje', 'aSucursales'));
+            return view('web.recuperar-clave', compact('titulo', 'mensaje', 'aSucursales', 'aCarritos'));
         }
     }
 }
