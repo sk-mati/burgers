@@ -30,6 +30,10 @@ class ControladorWebLogin extends Controller
         $correo = $request->input("txtCorreo");
         $clave = $request->input("txtClave");
 
+        $idCliente = Session::get("idCliente");
+        $carrito = new Carrito();
+        $aCarritos = $carrito->obtenerPorCliente($idCliente);
+
         $cliente = new Cliente();
         $cliente->obtenerPorCorreo($correo);
         if($cliente->correo != ""){
@@ -38,7 +42,7 @@ class ControladorWebLogin extends Controller
                 return redirect('/');
             } else {
                 $mensaje =  "Credenciales incorrectas.";
-                return view('web.login', compact('aSucursales', 'mensaje'));
+                return view('web.login', compact('aSucursales', 'aCarritos', 'mensaje'));
             }
         }
     }
