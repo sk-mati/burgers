@@ -52,7 +52,7 @@
               <div class="col-md-7 col-lg-6 ">
                 <div class="detail-box">
                   <h1>
-                    Burguers
+                    Burgers
                   </h1>
                   <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, deleniti quasi quo suscipit eum, velit fugiat vitae illo repellat ipsam doloribus eaque harum autem non, minima quis nam mollitia necessitatibus!
