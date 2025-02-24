@@ -126,6 +126,7 @@ class ControladorWebCarrito extends Controller
             }
 
             $carrito->eliminarPorCliente($idCliente);
+            $aCarritos = [];
 
             $mensaje = "El pedido se ha confirmado correctamente.";
             return view("web.carrito", compact('mensaje', 'aSucursales', 'aCarritos'));
