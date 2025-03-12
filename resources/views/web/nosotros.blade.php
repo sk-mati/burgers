@@ -83,7 +83,7 @@
 <section class="client_section layout_padding-bottom">
   <div class="container">
     <div class="heading_container heading_center psudo_white_primary mb_45">
-      <h2>
+      <h2 class="py-5">
         ¿Qué dicen nuestros clientes?
       </h2>
     </div>
