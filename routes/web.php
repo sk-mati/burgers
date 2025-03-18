@@ -113,6 +113,7 @@ Route::group(array('domain' => '127.0.0.1'), function () {
 /* --------------------------------------------- */
 /* CONTROLADOR PROVEEDORES                        */
 /* --------------------------------------------- */
+    Route::resource('proveedores', ControladorProveedor::class)->only('index');
     Route::get('/admin/proveedor/nuevo', 'ControladorProveedor@nuevo');
     Route::post('/admin/proveedor/nuevo', 'ControladorProveedor@guardar');
     Route::get('/admin/proveedores', 'ControladorProveedor@index');
