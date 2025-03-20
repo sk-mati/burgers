@@ -113,10 +113,13 @@ Route::group(array('domain' => '127.0.0.1'), function () {
 /* --------------------------------------------- */
 /* CONTROLADOR PROVEEDORES                        */
 /* --------------------------------------------- */
-    Route::resource('proveedores', ControladorProveedor::class)->only('index');
-    Route::get('/admin/proveedor/nuevo', 'ControladorProveedor@nuevo');
-    Route::post('/admin/proveedor/nuevo', 'ControladorProveedor@guardar');
-    Route::get('/admin/proveedores', 'ControladorProveedor@index');
+Route::get('/admin/proveedor/nuevo', 'ControladorProveedor@nuevo');
+Route::post('/admin/proveedor/nuevo', 'ControladorProveedor@guardar');
+Route::get('/admin/proveedores', 'ControladorProveedor@index');
+Route::get('/admin/proveedor/cargarGrilla', 'ControladorProveedor@cargarGrilla')->name('proveedor.cargarGrilla');
+Route::get('/admin/proveedor/eliminar', 'ControladorProveedor@eliminar');
+Route::get('/admin/proveedor/{idProveedor}', 'ControladorProveedor@editar');
+Route::post('/admin/proveedor/{idProveedor}', 'ControladorProveedor@guardar');
 
 /* --------------------------------------------- */
 /* CONTROLADOR RUBROS                        */
