@@ -104,29 +104,26 @@ Route::group(array('domain' => '127.0.0.1'), function () {
     Route::post('/admin/sucursal/{idSucursal}', 'ControladorSucursal@guardar');
 
 /* --------------------------------------------- */
-/* CONTROLADOR CATEGORIAS                        */
-/* --------------------------------------------- */
-    Route::get('/admin/categoria/nuevo', 'ControladorCategoria@nuevo');
-    Route::post('/admin/categoria/nuevo', 'ControladorCategoria@guardar');
-    Route::get('/admin/categorias', 'ControladorCategoria@index');
-    
-/* --------------------------------------------- */
 /* CONTROLADOR PROVEEDORES                        */
 /* --------------------------------------------- */
-Route::get('/admin/proveedor/nuevo', 'ControladorProveedor@nuevo');
-Route::post('/admin/proveedor/nuevo', 'ControladorProveedor@guardar');
-Route::get('/admin/proveedores', 'ControladorProveedor@index');
-Route::get('/admin/proveedor/cargarGrilla', 'ControladorProveedor@cargarGrilla')->name('proveedor.cargarGrilla');
-Route::get('/admin/proveedor/eliminar', 'ControladorProveedor@eliminar');
-Route::get('/admin/proveedor/{idProveedor}', 'ControladorProveedor@editar');
-Route::post('/admin/proveedor/{idProveedor}', 'ControladorProveedor@guardar');
+    Route::get('/admin/proveedor/nuevo', 'ControladorProveedor@nuevo');
+    Route::post('/admin/proveedor/nuevo', 'ControladorProveedor@guardar');
+    Route::get('/admin/proveedores', 'ControladorProveedor@index');
+    Route::get('/admin/proveedor/cargarGrilla', 'ControladorProveedor@cargarGrilla')->name('proveedor.cargarGrilla');
+    Route::get('/admin/proveedor/eliminar', 'ControladorProveedor@eliminar');
+    Route::get('/admin/proveedor/{idProveedor}', 'ControladorProveedor@editar');
+    Route::post('/admin/proveedor/{idProveedor}', 'ControladorProveedor@guardar');
 
 /* --------------------------------------------- */
-/* CONTROLADOR RUBROS                        */
+/* CONTROLADOR NÓMINA                        */
 /* --------------------------------------------- */
-    Route::get('/admin/rubro/nuevo', 'ControladorRubro@nuevo');
-    Route::post('/admin/rubro/nuevo', 'ControladorRubro@guardar');
-    Route::get('/admin/rubros', 'ControladorRubro@index');
+    Route::get('/admin/nomina/nuevo', 'ControladorNomina@nuevo');
+    Route::post('/admin/nomina/nuevo', 'ControladorNomina@guardar');
+    Route::get('/admin/nominas', 'ControladorNomina@index');
+    Route::get('/admin/nomina/cargarGrilla', 'ControladorNomina@cargarGrilla')->name('nomina.cargarGrilla');
+    Route::get('/admin/nomina/eliminar', 'ControladorNomina@eliminar');
+    Route::get('/admin/nomina/{idNomina}', 'ControladorNomina@editar');
+    Route::post('/admin/nomina/{idNomina}', 'ControladorNomina@guardar');
 
 /* --------------------------------------------- */
 /* CONTROLADOR LOGIN                             */
