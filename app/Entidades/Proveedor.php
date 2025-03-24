@@ -2,7 +2,7 @@
 
 namespace App\Entidades;
 
-use DB;
+use DB;//Es como el mysqli anteriormente utilizado
 use Illuminate\Database\Eloquent\Model;
 
 class Proveedor extends Model
