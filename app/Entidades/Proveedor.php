@@ -2,8 +2,8 @@
 
 namespace App\Entidades;
 
-use DB;//Es como el mysqli anteriormente utilizado
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class Proveedor extends Model
 {
@@ -31,31 +31,18 @@ class Proveedor extends Model
 
     public function obtenerTodos() 
     {
-        $sql = "SELECT 
-                  idproveedor,
-                  nombre,
-                  modelo,
-                  ubicacion,
-                  tipoproducto,
-                  relacion,
-                  regularidad
-                FROM proveedores ORDER BY nombre";
-        $lstRetorno = DB::select($sql);
+        $lstRetorno = FacadesDB::table('proveedores')
+                                ->orderBy('nombre')
+                                ->get();
         return $lstRetorno;
     }
 
     public function obtenerPorId($idProveedor)
     {
-        $sql = "SELECT
-                  idproveedor,
-                  nombre,
-                  modelo,
-                  ubicacion,
-                  tipoproducto,
-                  relacion,
-                  regularidad
-                FROM proveedores WHERE idproveedor = $idProveedor";
-        $lstRetorno = DB::select($sql);
+        $lstRetorno = FacadesDB::table("proveedores")
+                                ->select('idproveedor', 'nombre', 'modelo', 'ubicacion', 'tipoproducto', 'relacion', 'regularidad')
+                                ->where('idproveedor', "=", $idProveedor)
+                                ->get();
 
         if (count($lstRetorno) > 0) {
             $this->idproveedor = $lstRetorno[0]->idproveedor;
@@ -71,82 +58,36 @@ class Proveedor extends Model
     }
 
     public function guardar() {
-        $sql = "UPDATE proveedores SET
-            nombre='$this->nombre',
-            modelo='$this->modelo',
-            ubicacion='$this->ubicacion',
-            tipoproducto='$this->tipoproducto',
-            relacion='$this->relacion',
-            regularidad='$this->regularidad'
-            WHERE idproveedor=?";
-        $affected = DB::update($sql, [$this->idproveedor]);
+        $affected = FacadesDB::table('proveedores')
+                        ->where('idproveedor', '=', $this->idproveedor)
+                        ->update([  'nombre' => $this->nombre, 
+                                    'modelo' => $this->modelo,
+                                    'ubicacion' => $this->ubicacion,
+                                    'tipoproducto' => $this->tipoproducto, 
+                                    'relacion' => $this->relacion,
+                                    'regularidad' => $this->regularidad]);
     }
 
     public function eliminar()
     {
-        $sql = "DELETE FROM proveedores WHERE
-            idproveedor=?";
-        $affected = DB::delete($sql, [$this->idproveedor]);
+        $deleted = FacadesDB::table('proveedores')->where('idproveedor', '=', $this->idproveedor)->delete();
     }
 
     public function insertar()
     {
-        $sql = "INSERT INTO proveedores (
-                  nombre,
-                  modelo,
-                  ubicacion,
-                  tipoproducto,
-                  relacion,
-                  regularidad
-            ) VALUES (?, ?, ?, ?, ?, ?);";
-        $result = DB::insert($sql, [
-            $this->nombre,
-            $this->modelo,
-            $this->ubicacion,
-            $this->tipoproducto,
-            $this->relacion,
-            $this->regularidad
+        FacadesDB::table('proveedores')->insert([
+            'nombre' => $this->nombre,
+            'modelo' => $this->modelo,
+            'ubicacion' => $this->ubicacion,
+            'tipoproducto' => $this->tipoproducto,
+            'relacion' => $this->relacion,
+            'regularidad' => $this->regularidad
         ]);
-        return $this->idproveedor = DB::getPdo()->lastInsertId();
     }
 
     public function obtenerFiltrado()
     {
-        $request = $_REQUEST;
-        $columns = array(
-            0 => 'nombre',
-            1 => 'modelo',
-            2 => 'ubicacion',
-            3 => 'tipoproducto',
-            4 => 'relacion',
-            5 => 'regularidad',
-        );
-        $sql = "SELECT DISTINCT
-                        idproveedor,
-                        nombre,
-                        modelo,
-                        ubicacion,
-                        tipoproducto,
-                        relacion,
-                        regularidad
-                    FROM proveedores
-                    WHERE 1=1
-                ";
-
-        //Realiza el filtrado
-        if (!empty($request['search']['value'])) {
-            $sql .= " AND ( nombre LIKE '%" . $request['search']['value'] . "%' ";
-            $sql .= " OR modelo LIKE '%" . $request['search']['value'] . "%' ";
-            $sql .= " OR ubicacion LIKE '%" . $request['search']['value'] . "%' ";
-            $sql .= " OR tipoproducto LIKE '%" . $request['search']['value'] . "%' ";
-            $sql .= " OR relacion LIKE '%" . $request['search']['value'] . "%' )";
-            $sql .= " OR regularidad LIKE '%" . $request['search']['value'] . "%' )";
-
-        }
-        $sql .= " ORDER BY " . $columns[$request['order'][0]['column']] . "   " . $request['order'][0]['dir'];
-
-        $lstRetorno = DB::select($sql);
-
+        $lstRetorno = FacadesDB::table('proveedores')->get();
         return $lstRetorno;
     }
 
