@@ -3,35 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Entidades\Pedido;
+use App\Services\ServicioMercadoPago;
 
 require app_path().'/start/constants.php';
 
 class ControladorMercadoPago extends Controller
 {
-      public function aprobar($idPedido)
+      public function aprobar($mercadoPago)
       {
-            $pedido = new Pedido();
-            $pedido->obtenerPorId($idPedido);
-            $pedido->fk_idestado = 5;
-            $pedido->guardar();
-            return redirect("/mi-cuenta");
+            
       }
 
-      public function pendiente($idPedido)
+      public function pendiente($mercadoPago)
       {
-            $pedido = new Pedido();
-            $pedido->obtenerPorId($idPedido);
-            $pedido->fk_idestado = 1;
-            $pedido->guardar();
-            return redirect("/mi-cuenta");
+      
       }
 
-      public function error($idPedido)
+      public function error($mercadoPago)
       {
-            $pedido = new Pedido();
-            $pedido->obtenerPorId($idPedido);
-            $pedido->fk_idestado = 4;
-            $pedido->guardar();
-            return redirect("/mi-cuenta");
+      
       }
 }
