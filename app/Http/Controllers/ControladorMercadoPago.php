@@ -7,7 +7,7 @@ use App\Services\ServicioMercadoPago;
 
 class ControladorMercadoPago extends Controller
 {
-      private $servicioMercadoPago;
+      private ServicioMercadoPago $servicioMercadoPago;
 
       public function __construct(ServicioMercadoPago $servicioMercadoPago)
       {

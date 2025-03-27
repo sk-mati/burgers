@@ -73,8 +73,7 @@ class ControladorProveedor extends Controller
                     return view('sistema.proveedor-listar', compact('titulo', 'msg'));
                 }
             } catch (Exception $e) {
-                $msg["ESTADO"] = MSG_ERROR;
-                $msg["MSG"] = ERRORINSERT;
+                throw new ProveedorException();
             }
     
             $id = $entidad->idproveedor;
