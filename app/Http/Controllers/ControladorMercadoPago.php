@@ -2,25 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Entidades\Pedido;
-use App\Services\ServicioMercadoPago;
 
-require app_path().'/start/constants.php';
+use App\Services\ServicioMercadoPago;
 
 class ControladorMercadoPago extends Controller
 {
-      public function aprobar($mercadoPago)
-      {
-            
-      }
+      private $servicioMercadoPago;
 
-      public function pendiente($mercadoPago)
+      public function __construct(ServicioMercadoPago $servicioMercadoPago)
       {
-      
-      }
-
-      public function error($mercadoPago)
-      {
-      
+      $this->servicioMercadoPago = $servicioMercadoPago;
       }
 }

@@ -6,7 +6,7 @@ use App\Entidades\Pedido;
 
 class ServicioMercadoPago {
 
-      public function aprobar($idPedido, $mercadoPago)
+      public function aprobar($idPedido)
       {
             $pedido = new Pedido();
             $pedido->obtenerPorId($idPedido);
@@ -15,7 +15,7 @@ class ServicioMercadoPago {
             return redirect("/mi-cuenta");
       }
 
-      public function pendiente($idPedido, $mercadoPago)
+      public function pendiente($idPedido)
       {
             $pedido = new Pedido();
             $pedido->obtenerPorId($idPedido);
@@ -24,7 +24,7 @@ class ServicioMercadoPago {
             return redirect("/mi-cuenta");
       }
 
-      public function error($idPedido, $mercadoPago)
+      public function error($idPedido)
       {
             $pedido = new Pedido();
             $pedido->obtenerPorId($idPedido);
