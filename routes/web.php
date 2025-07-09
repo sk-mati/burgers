@@ -104,28 +104,6 @@ Route::group(array('domain' => '127.0.0.1'), function () {
     Route::post('/admin/sucursal/{idSucursal}', 'ControladorSucursal@guardar');
 
 /* --------------------------------------------- */
-/* CONTROLADOR PROVEEDORES                        */
-/* --------------------------------------------- */
-    Route::get('/admin/proveedor/nuevo', 'ControladorProveedor@nuevo');
-    Route::post('/admin/proveedor/nuevo', 'ControladorProveedor@guardar');
-    Route::get('/admin/proveedores', 'ControladorProveedor@index');
-    Route::get('/admin/proveedor/cargarGrilla', 'ControladorProveedor@cargarGrilla')->name('proveedor.cargarGrilla');
-    Route::get('/admin/proveedor/eliminar', 'ControladorProveedor@eliminar');
-    Route::get('/admin/proveedor/{idProveedor}', 'ControladorProveedor@editar');
-    Route::post('/admin/proveedor/{idProveedor}', 'ControladorProveedor@guardar');
-
-/* --------------------------------------------- */
-/* CONTROLADOR NÓMINA                        */
-/* --------------------------------------------- */
-    Route::get('/admin/nomina/nuevo', 'ControladorNomina@nuevo');
-    Route::post('/admin/nomina/nuevo', 'ControladorNomina@guardar');
-    Route::get('/admin/nominas', 'ControladorNomina@index');
-    Route::get('/admin/nomina/cargarGrilla', 'ControladorNomina@cargarGrilla')->name('nomina.cargarGrilla');
-    Route::get('/admin/nomina/eliminar', 'ControladorNomina@eliminar');
-    Route::get('/admin/nomina/{idNomina}', 'ControladorNomina@editar');
-    Route::post('/admin/nomina/{idNomina}', 'ControladorNomina@guardar');
-
-/* --------------------------------------------- */
 /* CONTROLADOR LOGIN                             */
 /* --------------------------------------------- */
     Route::get('/admin', 'ControladorHome@index');
